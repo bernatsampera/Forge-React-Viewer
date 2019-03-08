@@ -1,0 +1,8 @@
+export const GET_ERRORS = "GET_ERRORS";
+export const SET_FORGE_ACCESS = "SET_FORGE_ACCESS";
+export const GET_BUCKETS = "GET_BUCKETS";
+export const GET_MODELS = "GET_MODELS";
+export const POST_LOADING = "POST_LOADING";
+export const CONVERT_MODEL = "CONVERT_MODEL";
+export const GET_OBJECT_INFO = "GET_OBJECT_INFO";
+export const SET_ITEM_SELECTED = "SET_ITEM_SELECTED";
