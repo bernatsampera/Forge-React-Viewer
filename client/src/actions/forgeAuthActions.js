@@ -3,9 +3,18 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 // Login - Get Forge Access - Auth
-export const getForgeAccess = () => dispatch => {
+export const getForgeAccess = (
+  client_id,
+  client_secret,
+  history
+) => dispatch => {
+  const body = {
+    client_id,
+    client_secret
+  };
+
   axios
-    .get("/api/oauth")
+    .post("/api/oauth", body)
     .then(res => {
       // Save to localstorage
       const { access_token } = res.data;
@@ -15,6 +24,8 @@ export const getForgeAccess = () => dispatch => {
       const decoded = jwt_decode(access_token);
       // Set current user
       dispatch(setForgeAccess(decoded));
+      // Go to /dashboard
+      history.push("/");
     })
     .catch(err => console.log(err));
 };

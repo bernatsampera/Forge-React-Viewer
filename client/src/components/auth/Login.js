@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { createBucket } from "../../actions/forgeManagementActions";
+import { getForgeAccess } from "../../actions/forgeAuthActions";
 
-// Delete this component and functionality, Create three buckets and keep those forever, create new api
-export class CreateBucket extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      bucketKey: "",
-      policyKey: "transient"
+      client_id: "",
+      client_secret: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,9 +23,9 @@ export class CreateBucket extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const { bucketKey, policyKey } = this.state;
+    const { client_id, client_secret } = this.state;
 
-    this.props.createBucket(bucketKey, policyKey, this.props.history);
+    this.props.getForgeAccess(client_id, client_secret, this.props.history);
   }
 
   render() {
@@ -36,36 +35,37 @@ export class CreateBucket extends Component {
           <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div className=" my-5">
               <div className="card-body">
-                <h5 className="card-title text-center">Create a bucket</h5>
+                <h5 className="card-title text-center">
+                  Sign In using your Forge Application Credentials
+                </h5>
                 <form className="form-signin" onSubmit={this.onSubmit}>
                   <div className="form-label-group text-left">
-                    <label htmlFor="bucketKey"> Bucket Key </label>
+                    <label htmlFor="client_id">Client ID</label>
                     <input
                       type="text"
-                      id="bucketKey"
+                      id="client_id"
                       className="form-control"
-                      placeholder="Bucket Key"
+                      placeholder="Client ID"
                       required
                       autoFocus
-                      name="bucketKey"
-                      value={this.state.bucketKey}
+                      name="client_id"
+                      value={this.state.client_id}
                       onChange={this.handleChange}
                     />
                   </div>
                   <br />
                   <div className="form-label-group text-left">
-                    <label htmlFor="policyKey">Policy Key</label>
-                    <select
-                      className="form-control form-control-lg"
-                      name="policyKey"
-                      value={this.state.policyKey}
+                    <label htmlFor="client_secret">Client Secret</label>
+                    <input
+                      type="password"
+                      id="client_secret"
+                      className="form-control"
+                      placeholder="Client Secret"
+                      required
+                      name="client_secret"
+                      value={this.state.client_secret}
                       onChange={this.handleChange}
-                      id="policyKey"
-                    >
-                      <option value="transient"> transient </option>
-                      <option value="temporary"> temporary </option>
-                      <option value="persistent"> persistent </option>
-                    </select>
+                    />
                   </div>
 
                   <div className="custom-control custom-checkbox mb-3">
@@ -76,10 +76,10 @@ export class CreateBucket extends Component {
                     />
                   </div>
                   <button
-                    className="btn btn-primary btn-block text-uppercase"
+                    className="btn btn-lg btn-primary btn-block text-uppercase"
                     type="submit"
                   >
-                    Create
+                    Sign in
                   </button>
                 </form>
               </div>
@@ -91,11 +91,11 @@ export class CreateBucket extends Component {
   }
 }
 
-CreateBucket.propTypes = {
-  createBucket: PropTypes.func.isRequired
+Login.propTypes = {
+  getForgeAccess: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { createBucket }
-)(CreateBucket);
+  { getForgeAccess }
+)(Login);

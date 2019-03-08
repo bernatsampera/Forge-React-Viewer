@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import {
-  getForgeAccess,
-  removeAccess,
-  setForgeAccess
-} from "./actions/forgeAuthActions";
+import { removeAccess, setForgeAccess } from "./actions/forgeAuthActions";
 
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
@@ -14,10 +10,11 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import Navbar from "./components/layout/Navbar";
 import Dashboard from "./components/dashboard/Dashboard";
 import Buckets from "./components/buckets/Buckets";
-import Bucket from "./components/bucket/Bucket";
+import Models from "./components/models/Models";
 import Viewer from "./components/viewer/Viewer";
 import CreateBucket from "./components/buckets/CreateBucket";
 import Spinner from "./components/common/Spinner";
+import Login from "./components/auth/Login";
 
 import "./App.css";
 
@@ -32,11 +29,9 @@ if (localStorage.access_token) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(removeAccess());
-    // TODO: Clear current profile
-    store.dispatch(getForgeAccess());
+    // Redirect to the login page
+    window.location.href = "/login";
   }
-} else {
-  store.dispatch(getForgeAccess());
 }
 
 class App extends Component {
@@ -48,9 +43,10 @@ class App extends Component {
             <div className="App">
               <Navbar />
               <Route exact path="/" component={Dashboard} />
+              <Route exact path="/login" component={Login} />
               <Route exact path="/buckets" component={Buckets} />
               <Route exact path="/bucket/create" component={CreateBucket} />
-              <Route path="/bucket/detail/:bucketKey" component={Bucket} />
+              <Route path="/bucket/detail/:bucketKey" component={Models} />
               <Route path="/viewer/:objectId/:filename" component={Viewer} />
             </div>
           </Router>

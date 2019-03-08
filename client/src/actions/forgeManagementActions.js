@@ -20,6 +20,23 @@ export const getBuckets = () => dispatch => {
     .catch(err => console.log(err));
 };
 
+// Create Bucket
+export const createBucket = (bucketKey, policyKey, history) => dispatch => {
+  const body = {
+    access_token: localStorage.getItem("access_token"),
+    bucketKey,
+    policyKey
+  };
+
+  axios
+    .post("/api/datamanagement/create", body)
+    .then(res => {
+      dispatch(getBuckets());
+      history.push("/");
+    })
+    .catch(err => console.log(err));
+};
+
 // Get Models
 export const getModels = bucketKey => dispatch => {
   dispatch(setPostLoading());

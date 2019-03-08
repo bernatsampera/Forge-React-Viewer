@@ -5,7 +5,16 @@ const keys = require("../config/forge");
 
 var router = express.Router();
 
-router.get("/", (req, res) => {
+router.post("/", (req, res) => {
+  const client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
+  const client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
+
+  console.log(client_id);
+
+  if (!(client_id && client_secret)) {
+    res.status(5000).json({ msg: "Credentials where not provided" });
+  }
+
   var scopes =
     "data:read data:write data:create bucket:create bucket:read code:all";
 
@@ -16,8 +25,8 @@ router.get("/", (req, res) => {
       "content-type": "application/x-www-form-urlencoded"
     },
     data: querystring.stringify({
-      client_id: keys.FORGE_CLIENT_ID,
-      client_secret: keys.FORGE_CLIENT_SECRET,
+      client_id: client_id,
+      client_secret: client_secret,
       grant_type: "client_credentials",
       scope: scopes
     })

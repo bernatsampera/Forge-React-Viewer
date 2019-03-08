@@ -6,7 +6,7 @@ import { getModels, uploadModel } from "../../actions/forgeManagementActions";
 import ModelItem from "./ModelItem";
 import Spinner from "../common/Spinner";
 
-class Bucket extends Component {
+class Models extends Component {
   constructor(props) {
     super(props);
 
@@ -88,7 +88,7 @@ class Bucket extends Component {
   }
 }
 
-Bucket.propTypes = {
+Models.propTypes = {
   getModels: PropTypes.func.isRequired,
   uploadModel: PropTypes.func.isRequired,
   forgeManagement: PropTypes.object.isRequired
@@ -101,4 +101,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getModels, uploadModel }
-)(Bucket);
+)(Models);

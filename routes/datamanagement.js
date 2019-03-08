@@ -32,6 +32,9 @@ router.post("/create", function(req, res, next) {
   const bucketKey = req.body.bucketKey;
   const policyKey = req.body.policyKey;
 
+  console.log(bucketKey);
+  console.log(policyKey);
+
   Axios({
     method: "POST",
     url: "https://developer.api.autodesk.com/oss/v2/buckets",
@@ -46,9 +49,7 @@ router.post("/create", function(req, res, next) {
   })
     .then(function(response) {
       // Success
-      res.json({ success: true });
-
-      //Follow with detail implementation here
+      res.json({ success: true, msg: "bucket created" });
     })
     .catch(function(error) {
       if (error.response && error.response.status == 409) {
@@ -56,7 +57,7 @@ router.post("/create", function(req, res, next) {
         res.json({ success: false, message: "Bucket already exists" });
       }
       // Failed
-      console.log(error);
+      // console.log(error);
       res.send("Failed to create a new bucket");
       res.json({ success: false, message: "Failed to create new bucket" });
     });
