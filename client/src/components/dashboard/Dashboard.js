@@ -16,11 +16,11 @@ export class Dashboard extends Component {
               Go to buckets
             </Link>
           </div>
-          <div className="row">
+          {/* <div className="row">
             <Link to="/bucket/create" className="btn btn-secondary col-12 m-3">
               Create New bucket
             </Link>
-          </div>
+          </div> */}
         </div>
       );
     } else {

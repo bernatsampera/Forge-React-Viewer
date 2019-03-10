@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getForgeAccess } from "../../actions/forgeAuthActions";
+import keys from "./defaultKeys";
 
 export class Login extends Component {
   constructor(props) {
@@ -13,11 +14,18 @@ export class Login extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleDefaultLogin = this.handleDefaultLogin.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleDefaultLogin(e) {
+    const { client_id, client_secret } = keys;
+
+    this.props.getForgeAccess(client_id, client_secret, this.props.history);
   }
 
   onSubmit(e) {
@@ -82,6 +90,13 @@ export class Login extends Component {
                     Sign in
                   </button>
                 </form>
+                <button
+                  className="btn btn-sm btn-secondary btn-block text-uppercase mt-5"
+                  type="submit"
+                  onClick={this.handleDefaultLogin}
+                >
+                  Sign in with the default account
+                </button>
               </div>
             </div>
           </div>

@@ -57,7 +57,7 @@ router.post("/create", function(req, res, next) {
         res.json({ success: false, message: "Bucket already exists" });
       }
       // Failed
-      // console.log(error);
+      console.log(error);
       res.send("Failed to create a new bucket");
       res.json({ success: false, message: "Failed to create new bucket" });
     });
