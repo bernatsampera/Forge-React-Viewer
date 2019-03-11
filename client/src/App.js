@@ -46,8 +46,15 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/buckets" component={Buckets} />
               <Route exact path="/bucket/create" component={CreateBucket} />
-              <Route path="/bucket/detail/:bucketKey" component={Models} />
-              <Route path="/viewer/:objectId/:filename" component={Viewer} />
+              <Route
+                exact
+                path="/bucket/detail/:bucketKey"
+                component={Models}
+              />
+              <Route
+                path="/bucket/detail/:bucketKey/:objectId/:filename"
+                component={Viewer}
+              />
             </div>
           </Router>
         </PersistGate>

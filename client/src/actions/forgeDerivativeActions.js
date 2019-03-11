@@ -11,7 +11,10 @@ export const convertModel = (objectId, filename) => dispatch => {
   };
   axios
     .post("/api/modelderivative/convert", body)
-    .then(res => dispatch({ type: CONVERT_MODEL, payload: res.data.data.urn }))
+    .then(res => {
+      console.log(res);
+      dispatch({ type: CONVERT_MODEL, payload: res.data.data.urn });
+    })
     .catch(err => console.log(err));
 };
 

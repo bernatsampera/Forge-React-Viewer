@@ -22,7 +22,8 @@ export class ModelItem extends Component {
           </div>
           <Link
             className="col-md-2 btn btn-dark"
-            to={`/viewer/${objectId}`} // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
+            to={`/bucket/detail/${bucketKey}/${objectId}`}
+            // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
             // So it will be splitted in two different params objectid and filename
           >
             View Model

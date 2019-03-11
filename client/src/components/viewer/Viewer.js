@@ -9,6 +9,7 @@ import {
 import Tree from "./Tree";
 import Spinner from "../common/Spinner";
 import ViewerItem from "./ViewerItem";
+import isEmpty from "../../validation/is-empty";
 
 class Viewer extends Component {
   componentDidMount() {
@@ -16,7 +17,9 @@ class Viewer extends Component {
     this.props.convertModel(objectId, filename);
     this.props.getTreeInfo(objectId, filename);
   }
+
   render() {
+    const { bucketKey } = this.props.match.params;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let viewerContent;
     let treeContent;
@@ -27,7 +30,7 @@ class Viewer extends Component {
       viewerContent = <ViewerItem urn={urn} />;
     }
 
-    if (objectInfo === null || loading) {
+    if (objectInfo === null || isEmpty(objectInfo) || loading) {
       treeContent = <Spinner />;
     } else {
       console.log(objectInfo);
@@ -40,7 +43,13 @@ class Viewer extends Component {
 
     return (
       <div className="Viewer">
-        <div className="text-left p-4">
+        <div className="text-left pl-4">
+          <Link
+            to={`/bucket/detail/${bucketKey}`}
+            className="btn btn-sm btn-light mb-2 text-left"
+          >
+            Back To Model
+          </Link>
           <h3> Viewer Component </h3>
           {treeContent}
         </div>

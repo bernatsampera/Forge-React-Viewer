@@ -39,9 +39,12 @@ export const setForgeAccess = decoded => {
 };
 
 // Log user out
-export const removeAccess = () => dispatch => {
+export const removeAccess = history => dispatch => {
   // Remove token from localStorage
   localStorage.removeItem("access_token");
+  localStorage.removeItem("documentId");
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setForgeAccess({}));
+  // Go to /
+  history.push("/");
 };

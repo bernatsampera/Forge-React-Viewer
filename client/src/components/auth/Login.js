@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getForgeAccess } from "../../actions/forgeAuthActions";
-import keys from "./defaultKeys";
 
 export class Login extends Component {
   constructor(props) {
@@ -23,9 +22,7 @@ export class Login extends Component {
   }
 
   handleDefaultLogin(e) {
-    const { client_id, client_secret } = keys;
-
-    this.props.getForgeAccess(client_id, client_secret, this.props.history);
+    this.props.getForgeAccess(null, null, this.props.history);
   }
 
   onSubmit(e) {

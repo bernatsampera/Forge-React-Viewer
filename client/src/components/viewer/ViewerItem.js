@@ -139,7 +139,7 @@ const canvasStyle = {
   top: "50px",
   bottom: "0px",
   zIndex: "1",
-  backgroundColor: "rgb(99, 168, 99)"
+  backgroundColor: "#D8E1EA"
 };
 
 ViewerItem.propTypes = {

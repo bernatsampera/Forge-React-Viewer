@@ -2,8 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { removeAccess } from "../../actions/forgeAuthActions";
+import { withRouter } from "react-router-dom";
 
 class Navbar extends Component {
+  handleLogoutClick = e => {
+    e.preventDefault();
+
+    this.props.removeAccess(this.props.history);
+  };
+
   render() {
     const { isAuthenticated } = this.props.forgeAuth;
 
@@ -13,6 +21,11 @@ class Navbar extends Component {
           <Link className="nav-link" to="/buckets">
             Buckets
           </Link>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="" onClick={this.handleLogoutClick}>
+            Logout
+          </a>
         </li>
       </ul>
     );
@@ -50,6 +63,7 @@ const navbarStyle = {
 };
 
 Navbar.propTypes = {
+  removeAccess: PropTypes.func.isRequired,
   forgeAuth: PropTypes.object.isRequired
 };
 
@@ -59,5 +73,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
-)(Navbar);
+  { removeAccess }
+)(withRouter(Navbar));

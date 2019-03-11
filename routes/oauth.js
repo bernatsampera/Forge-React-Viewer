@@ -6,14 +6,12 @@ const keys = require("../config/forge");
 var router = express.Router();
 
 router.post("/", (req, res) => {
-  const client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
-  const client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
+  req.session.client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
+  console.log(req.session.client_id);
 
-  console.log(client_id);
-
-  if (!(client_id && client_secret)) {
-    res.status(5000).json({ msg: "Credentials where not provided" });
-  }
+  // If user inputs some data use that data, if not use default variables
+  client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
+  client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
 
   var scopes =
     "data:read data:write data:create bucket:create bucket:read code:all";
@@ -34,6 +32,7 @@ router.post("/", (req, res) => {
     .then(function(response) {
       access_token = response.data.access_token;
       expires_in = response.data.expires_in;
+
       res.json({ access_token, expires_in });
     })
     .catch(function(err) {
@@ -43,7 +42,11 @@ router.post("/", (req, res) => {
 });
 
 router.get("/public", function(req, res) {
-  // Limit public token to Viewer read only
+  console.log(req.session.client_id);
+
+  client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
+  client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
+
   Axios({
     method: "POST",
     url: "https://developer.api.autodesk.com/authentication/v1/authenticate",
@@ -51,8 +54,8 @@ router.get("/public", function(req, res) {
       "content-type": "application/x-www-form-urlencoded"
     },
     data: querystring.stringify({
-      client_id: keys.FORGE_CLIENT_ID,
-      client_secret: keys.FORGE_CLIENT_SECRET,
+      client_id: client_id,
+      client_secret: client_secret,
       grant_type: "client_credentials",
       scope: "viewables:read"
     })
@@ -67,7 +70,7 @@ router.get("/public", function(req, res) {
     })
     .catch(function(error) {
       // Failed
-      console.log(error);
+      // console.log(error);
       res.status(500).json(error);
     });
 });

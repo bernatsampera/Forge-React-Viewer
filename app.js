@@ -2,10 +2,19 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var fs = require("fs");
 var cors = require("cors");
+var cookieSession = require("cookie-session");
 
 var app = express();
 
 app.use(cors());
+
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1", "key2"]
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

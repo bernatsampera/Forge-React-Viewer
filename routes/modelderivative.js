@@ -98,6 +98,9 @@ router.post("/objectInfo", function(req, res) {
   var urn = urn.toBase64();
   var guid = req.body.guid;
 
+  console.log("urn" + urn);
+  console.log(guid);
+
   const access_token = req.body.access_token;
 
   Axios({

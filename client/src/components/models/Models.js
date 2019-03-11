@@ -60,8 +60,8 @@ class Models extends Component {
     return (
       <div className="container">
         <div className="row">
-          <Link to="/buckets" className="btn btn-light mb-3 text-left">
-            Back To The List Of Buckets
+          <Link to="/buckets" className="btn btn-sm btn-light mb-3 text-left">
+            Back To Bucket List
           </Link>
         </div>
 
