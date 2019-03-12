@@ -31,7 +31,7 @@ class Viewer extends Component {
     }
 
     if (objectInfo === null || isEmpty(objectInfo) || loading) {
-      treeContent = <Spinner />;
+      treeContent = null; // Spinner not needed due to the already existing Viewer Spinner
     } else {
       console.log(objectInfo);
       const object1 = {
@@ -43,7 +43,7 @@ class Viewer extends Component {
 
     return (
       <div className="Viewer">
-        <div className="text-left pl-4">
+        <div className="text-left pl-5">
           <Link
             to={`/bucket/detail/${bucketKey}`}
             className="btn btn-sm btn-light mb-2 text-left"

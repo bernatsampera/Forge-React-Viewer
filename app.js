@@ -1,34 +1,36 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var fs = require("fs");
-var cors = require("cors");
-var cookieSession = require("cookie-session");
+const express = require("express");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+const cors = require("cors");
+const path = require("path");
 
-var app = express();
+const app = express();
 
 app.use(cors());
-
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["key1", "key2"]
-  })
-);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var oauth = require("./routes/oauth");
-var datamanagement = require("./routes/datamanagement");
-var modelderivative = require("./routes/modelderivative");
-var designautomation = require("./routes/designautomation");
+const oauth = require("./routes/oauth");
+const datamanagement = require("./routes/datamanagement");
+const modelderivative = require("./routes/modelderivative");
+const designautomation = require("./routes/designautomation");
 
 app.use("/api/oauth", oauth);
 app.use("/api/datamanagement", datamanagement);
 app.use("/api/modelderivative", modelderivative);
 app.use("/api/designautomation", designautomation);
 
-app.set("port", 3000);
-var server = app.listen(app.get("port"), function() {
+if (process.env.NODE_ENV === "production") {
+  app.use(Express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+const port = process.env.PORT || 3000;
+app.set("port", port);
+const server = app.listen(app.get("port"), function() {
   console.log("Server listening on port " + server.address().port);
 });

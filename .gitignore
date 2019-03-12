@@ -1,3 +1,4 @@
 /node_modules
 /client/node_modules
 /tmp
+/config/forge_dev
