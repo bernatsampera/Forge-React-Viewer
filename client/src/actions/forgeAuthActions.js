@@ -1,4 +1,4 @@
-import { SET_FORGE_ACCESS } from "./types";
+import { SET_FORGE_ACCESS, SET_VIEWER_ACCESS } from "./types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
@@ -27,6 +27,19 @@ export const getForgeAccess = (
       // Go to /dashboard
       history.push("/");
     })
+    .catch(err => console.log(err));
+};
+
+// Get Viewer Access
+export const getViewerAccess = () => dispatch => {
+  axios
+    .get("/api/oauth/public")
+    .then(res =>
+      dispatch({
+        type: SET_VIEWER_ACCESS,
+        payload: res.data
+      })
+    )
     .catch(err => console.log(err));
 };
 

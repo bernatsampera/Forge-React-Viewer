@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { getViewerAccess } from "../../actions/forgeAuthActions";
 import jQuery from "jquery";
 
 export class ViewerItem extends Component {
@@ -9,7 +10,8 @@ export class ViewerItem extends Component {
     this.state = {
       viewerApp: null,
       viewer: null,
-      documentId: localStorage.documentId || null
+      documentId: localStorage.documentId || null,
+      itemSelected: null
     };
   }
 
@@ -21,29 +23,40 @@ export class ViewerItem extends Component {
     }
 
     // Initializes Viewer App
-    this.setState({
-      viewerApp: new window.Autodesk.Viewing.ViewingApplication("MyViewerDiv")
-    });
-
-    // Initializes Autodesk Viewing
-    window.Autodesk.Viewing.Initializer(
+    this.setState(
       {
-        env: "AutodeskProduction",
-        api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
-        getAccessToken: this.getForgeToken
+        viewerApp: new window.Autodesk.Viewing.ViewingApplication("MyViewerDiv")
       },
-      this.callback
+      () =>
+        window.Autodesk.Viewing.Initializer(
+          {
+            env: "AutodeskProduction",
+            api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
+            getAccessToken: this.getForgeToken
+          },
+          this.callback
+        )
     );
+
+    // Initializes Autodesk Viewingelse {
   }
 
   componentWillReceiveProps(nextProps) {
     // Select item selected in tree component
-    if (nextProps.forgeViewer) {
+    if (nextProps.forgeViewer.itemSelected) {
       const { itemSelected } = nextProps.forgeViewer;
-      this.state.viewer.impl.selector.setSelection(
-        [itemSelected],
-        this.state.viewer.model
-      );
+      const { viewer } = this.state;
+      if (viewer) {
+        this.state.viewer.impl.selector.setSelection(
+          [itemSelected],
+          this.state.viewer.model
+        );
+      }
+    }
+    if (nextProps.forgeViewer.viewer_token) {
+      const { viewer_token } = nextProps.forgeViewer;
+      console.log("that");
+      this.callback(viewer_token.access_token, viewer_token.expires_in);
     }
   }
 
@@ -55,30 +68,36 @@ export class ViewerItem extends Component {
   }
 
   callback = () => {
-    // Sets the viewer
-    if (this.state.viewerApp) {
-      this.state.viewerApp.registerViewer(
-        this.state.viewerApp.k3D,
+    const { viewerApp, documentId } = this.state;
+    console.log(viewerApp);
+    if (viewerApp) {
+      viewerApp.registerViewer(
+        viewerApp.k3D,
         window.Autodesk.Viewing.Private.GuiViewer3D
       );
-      this.state.viewerApp.loadDocument(
-        this.state.documentId,
+      viewerApp.loadDocument(
+        documentId,
         this.onDocumentLoadSuccess,
         this.onDocumentLoadFailure
       );
     }
   };
 
-  getForgeToken(callback) {
-    // Gets public token
-    jQuery.ajax({
-      url: "http://localhost:3000/api/oauth/public",
-      success: function(res) {
-        callback(res.access_token, res.expires_in);
-      },
-      fail: function(err) {}
-    });
-  }
+  getForgeToken = callback => {
+    if (this.props.forgeViewer.viewer_token) {
+      const { viewer_token } = this.props.forgeViewer;
+      callback(viewer_token.access_token, viewer_token.expires_in);
+    } else {
+      this.props.getViewerAccess();
+    }
+    // jQuery.ajax({
+    //   url: "http://localhost:3000/api/oauth/public",
+    //   success: function(res) {
+    //     callback(res.access_token, res.expires_in);
+    //   },
+    //   fail: function(err) {}
+    // });
+  };
 
   onDocumentLoadSuccess = doc => {
     // Gets all the possibles viewables
@@ -101,6 +120,8 @@ export class ViewerItem extends Component {
 
   onItemLoadFail = viewerErrorCode => {
     // Error if translation is in progress
+    console.log(viewerErrorCode);
+
     jQuery("#MyViewerDiv").html(
       "<p>Translation in progress... Please try refreshing the page.</p>"
     );
@@ -108,6 +129,7 @@ export class ViewerItem extends Component {
 
   onDocumentLoadFailure = viewerErrorCode => {
     // Fires if the loaded of the svf file failes
+    console.log(viewerErrorCode);
     jQuery("#MyViewerDiv").html(
       "<p>There is an error fetching the translated SVF file. Please try refreshing the page.</p>"
     );
@@ -124,13 +146,26 @@ export class ViewerItem extends Component {
 
   onSelectionEvent() {
     let currSelection = this.state.viewer.getSelection();
-    console.log(currSelection);
+    this.setState({ itemSelected: currSelection });
   }
 
   render() {
-    return <div style={canvasStyle} id="MyViewerDiv" />;
+    const { itemSelected } = this.state;
+    return (
+      <div style={canvasStyle}>
+        <span style={textStyle}> Item: {itemSelected}</span>
+        <div id="MyViewerDiv" />
+      </div>
+    );
   }
 }
+
+const textStyle = {
+  zIndex: "2",
+  position: "absolute",
+  top: "2vh",
+  left: "3vw"
+};
 
 const canvasStyle = {
   position: "fixed",
@@ -143,6 +178,7 @@ const canvasStyle = {
 };
 
 ViewerItem.propTypes = {
+  getViewerAccess: PropTypes.func.isRequired,
   urn: PropTypes.string.isRequired,
   forgeViewer: PropTypes.object.isRequired
 };
@@ -153,5 +189,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  { getViewerAccess }
 )(ViewerItem);
