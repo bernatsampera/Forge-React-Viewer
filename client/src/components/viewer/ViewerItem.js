@@ -37,8 +37,6 @@ export class ViewerItem extends Component {
           this.callback
         )
     );
-
-    // Initializes Autodesk Viewingelse {
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,7 +53,6 @@ export class ViewerItem extends Component {
     }
     if (nextProps.forgeViewer.viewer_token) {
       const { viewer_token } = nextProps.forgeViewer;
-      console.log("that");
       this.callback(viewer_token.access_token, viewer_token.expires_in);
     }
   }
@@ -69,7 +66,6 @@ export class ViewerItem extends Component {
 
   callback = () => {
     const { viewerApp, documentId } = this.state;
-    console.log(viewerApp);
     if (viewerApp) {
       viewerApp.registerViewer(
         viewerApp.k3D,
@@ -90,22 +86,16 @@ export class ViewerItem extends Component {
     } else {
       this.props.getViewerAccess();
     }
-    // jQuery.ajax({
-    //   url: "http://localhost:3000/api/oauth/public",
-    //   success: function(res) {
-    //     callback(res.access_token, res.expires_in);
-    //   },
-    //   fail: function(err) {}
-    // });
   };
 
   onDocumentLoadSuccess = doc => {
     // Gets all the possibles viewables
-    const viewables = this.state.viewerApp.bubble.search({ type: "geometry" });
+    const { viewerApp } = this.state;
+    const viewables = viewerApp.bubble.search({ type: "geometry" });
 
     // Selects the viewable that will be displayed, in this case the first, [0], in the array viewables
-    this.state.viewerApp.selectItem(
-      viewables[0].data,
+    viewerApp.selectItem(
+      viewables[0],
       this.onItemLoadSuccess,
       this.onItemLoadFail
     );

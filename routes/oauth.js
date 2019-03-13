@@ -6,8 +6,6 @@ const keys = require("../config/forge");
 var router = express.Router();
 
 router.post("/", (req, res) => {
-  console.log(keys);
-
   // If user inputs some data use that data, if not use default variables
   client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
   client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;

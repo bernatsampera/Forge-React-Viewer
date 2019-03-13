@@ -33,7 +33,6 @@ class Viewer extends Component {
     if (objectInfo === null || isEmpty(objectInfo) || loading) {
       treeContent = null; // Spinner not needed due to the already existing Viewer Spinner
     } else {
-      console.log(objectInfo);
       const object1 = {
         // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
         objects: objectInfo
