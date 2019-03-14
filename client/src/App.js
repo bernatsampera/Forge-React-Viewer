@@ -15,6 +15,7 @@ import Viewer from "./components/viewer/Viewer";
 import CreateBucket from "./components/buckets/CreateBucket";
 import Spinner from "./components/common/Spinner";
 import Login from "./components/auth/Login";
+import Main from "./components/main/Main";
 
 import "./App.css";
 
@@ -52,8 +53,14 @@ class App extends Component {
                 component={Models}
               />
               <Route
-                path="/bucket/detail/:bucketKey/:objectId/:filename"
+                exact
+                path="/bucket/detail/viewer/:bucketKey/:objectId/:filename"
                 component={Viewer}
+              />
+              <Route
+                exact
+                path="/bucket/detail/:bucketKey/:objectId/:filename"
+                component={Main}
               />
             </div>
           </Router>

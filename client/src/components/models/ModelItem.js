@@ -21,8 +21,16 @@ export class ModelItem extends Component {
             </div>
           </div>
           <Link
-            className="col-md-2 btn btn-dark"
+            className="col-md-1 btn btn-sm btn-primary"
             to={`/bucket/detail/${bucketKey}/${objectId}`}
+            // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
+            // So it will be splitted in two different params objectid and filename
+          >
+            Load App
+          </Link>
+          <Link
+            className="col-md-1 btn btn-sm btn-primary"
+            to={`/bucket/detail/viewer/${bucketKey}/${objectId}`}
             // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
             // So it will be splitted in two different params objectid and filename
           >

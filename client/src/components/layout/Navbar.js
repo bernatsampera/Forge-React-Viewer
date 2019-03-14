@@ -23,9 +23,12 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="" onClick={this.handleLogoutClick}>
+          <button
+            className="nav-link btn btn-dark"
+            onClick={this.handleLogoutClick}
+          >
             Logout
-          </a>
+          </button>
         </li>
       </ul>
     );
