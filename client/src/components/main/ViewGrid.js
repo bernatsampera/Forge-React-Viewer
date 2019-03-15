@@ -3,81 +3,21 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import TreeList from "react-treelist";
+import { COLUMNS, OPTIONS, HANDLERS, setData } from "./GridOptions";
+import Spinner from "../common/Spinner";
 import "react-treelist/build/css/index.css";
 
 export class ViewGrid extends Component {
-  setData(data, objectInfo, parentId = -1, index = 0) {
-    objectInfo.map(object => {
-      switch (index) {
-        case 0:
-          data.push({ id: object.objectid, category: object.name });
-          break;
-        case 1:
-          data.push({ id: object.objectid, family: object.name, parentId });
-          break;
-        case 2:
-          data.push({ id: object.objectid, type: object.name, parentId });
-          break;
-        case 3:
-          data.push({ id: object.objectid, element: object.name, parentId });
-          break;
-        default:
-      }
-
-      if (object.objects) {
-        ++index;
-        this.setData(data, object.objects, object.objectid, index);
-        --index;
-      }
-    });
-    return data;
-  }
-
   render() {
-    const { objectInfo } = this.props.forgeDerivative;
-    console.log(objectInfo);
-    let data = this.setData([], objectInfo);
+    const { objectInfo, loading } = this.props.forgeDerivative;
+    let viewgridContent;
 
-    console.log(data);
-
-    const COLUMNS = [
-      {
-        title: "Category",
-        field: "category",
-        type: "string"
-      },
-      {
-        title: "Family",
-        field: "family",
-        type: "string"
-      },
-      {
-        title: "Type",
-        field: "type",
-        type: "string"
-      },
-      {
-        title: "Element",
-        field: "element",
-        type: "string"
-      }
-    ];
-
-    const OPTIONS = {
-      minimumColWidth: 100,
-      expandAll: false,
-      height: 500,
-      canSelect: true
-    };
-
-    const HANDLERS = {
-      onSelectRow(row) {
-        console.log(row);
-      }
-    };
-
-    return (
-      <div>
+    if (objectInfo === null || loading) {
+      viewgridContent = <Spinner />;
+    } else {
+      let data = setData([], objectInfo);
+      console.log(data);
+      viewgridContent = (
         <TreeList
           data={data}
           columns={COLUMNS}
@@ -87,8 +27,10 @@ export class ViewGrid extends Component {
           parentId={"parentId"}
           style={{ overflow: "auto" }}
         />
-      </div>
-    );
+      );
+    }
+
+    return <div>{viewgridContent}</div>;
   }
 }
 
