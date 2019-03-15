@@ -15,11 +15,9 @@ export class ViewGrid extends Component {
     if (objectInfo === null || loading) {
       viewgridContent = <Spinner />;
     } else {
-      let data = setData([], objectInfo);
-      console.log(data);
       viewgridContent = (
         <TreeList
-          data={data}
+          data={setData([], objectInfo)}
           columns={COLUMNS}
           options={OPTIONS}
           handlers={HANDLERS}

@@ -14,6 +14,8 @@ import isEmpty from "../../validation/is-empty";
 class Viewer extends Component {
   componentDidMount() {
     const { objectId, filename } = this.props.match.params;
+    const { urn, objectInfo } = this.props.forgeDerivative;
+
     this.props.convertModel(objectId, filename);
     this.props.getTreeInfo(objectId, filename);
   }
@@ -24,12 +26,14 @@ class Viewer extends Component {
     let viewerContent;
     let treeContent;
 
+    // Sets the viewer
     if (urn === null || loading) {
       viewerContent = <Spinner />;
     } else {
       viewerContent = <ViewerItem urn={urn} />;
     }
 
+    // Sets the tree of objects
     if (objectInfo === null || isEmpty(objectInfo) || loading) {
       treeContent = null; // Spinner not needed due to the already existing Viewer Spinner
     } else {
