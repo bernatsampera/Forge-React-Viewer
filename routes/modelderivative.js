@@ -60,10 +60,6 @@ router.post("/convert", function(req, res) {
 router.post("/treeInfo", function(req, res) {
   var urn = req.body.urn;
   var urn = urn.toBase64();
-  console.log("urn:");
-  console.log(urn);
-  console.log("access: ");
-  console.log(req.body.access_token);
 
   const access_token = req.body.access_token;
 
@@ -97,9 +93,6 @@ router.post("/objectInfo", function(req, res) {
   var urn = req.body.urn;
   var urn = urn.toBase64();
   var guid = req.body.guid;
-
-  console.log("urn" + urn);
-  console.log(guid);
 
   const access_token = req.body.access_token;
 

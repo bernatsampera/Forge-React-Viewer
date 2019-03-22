@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getViewerAccess } from "../../actions/forgeAuthActions";
 import jQuery from "jquery";
+import isEmpty from "../../validation/is-empty";
+import isValid from "../../validation/is-valid";
 
 export class ViewerItem extends Component {
   constructor(props) {
@@ -80,8 +82,8 @@ export class ViewerItem extends Component {
   };
 
   getForgeToken = callback => {
-    if (this.props.forgeViewer.viewer_token) {
-      const { viewer_token } = this.props.forgeViewer;
+    const { viewer_token } = this.props.forgeViewer;
+    if (!isEmpty(viewer_token) && isValid(viewer_token)) {
       callback(viewer_token.access_token, viewer_token.expires_in);
     } else {
       this.props.getViewerAccess();
@@ -106,6 +108,7 @@ export class ViewerItem extends Component {
     this.setState({ viewer: viewer }, () => {
       this.setEvents();
     });
+    this.props.loadViewer();
   };
 
   onItemLoadFail = viewerErrorCode => {
@@ -140,11 +143,16 @@ export class ViewerItem extends Component {
   }
 
   render() {
-    const { itemSelected } = this.state;
+    const { itemSelected, viewer } = this.state;
+    const { displayViewer } = this.props;
+    let viewerContent;
+
     return (
-      <div style={canvasStyle}>
-        <span style={textStyle}> Item: {itemSelected}</span>
-        <div id="MyViewerDiv" />
+      <div style={!displayViewer ? { visibility: "hidden" } : {}}>
+        <div style={canvasStyle}>
+          <span style={textStyle}> Item: {itemSelected}</span>
+          <div id="MyViewerDiv" />
+        </div>
       </div>
     );
   }
@@ -169,8 +177,10 @@ const canvasStyle = {
 
 ViewerItem.propTypes = {
   getViewerAccess: PropTypes.func.isRequired,
+  loadViewer: PropTypes.func.isRequired,
   urn: PropTypes.string.isRequired,
-  forgeViewer: PropTypes.object.isRequired
+  forgeViewer: PropTypes.object.isRequired,
+  displayViewer: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({

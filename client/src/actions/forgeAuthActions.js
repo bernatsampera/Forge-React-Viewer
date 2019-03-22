@@ -1,6 +1,7 @@
 import { SET_FORGE_ACCESS, SET_VIEWER_ACCESS } from "./types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import moment from "moment";
 
 // Login - Get Forge Access - Auth
 export const getForgeAccess = (
@@ -34,12 +35,7 @@ export const getForgeAccess = (
 export const getViewerAccess = () => dispatch => {
   axios
     .get("/api/oauth/public")
-    .then(res =>
-      dispatch({
-        type: SET_VIEWER_ACCESS,
-        payload: res.data
-      })
-    )
+    .then(res => dispatch(setViewerAccess(res.data)))
     .catch(err => console.log(err));
 };
 
@@ -51,6 +47,14 @@ export const setForgeAccess = decoded => {
   };
 };
 
+// Set viewer token
+export const setViewerAccess = decoded => {
+  return {
+    type: SET_VIEWER_ACCESS,
+    payload: decoded
+  };
+};
+
 // Log user out
 export const removeAccess = history => dispatch => {
   // Remove token from localStorage
@@ -58,6 +62,9 @@ export const removeAccess = history => dispatch => {
   localStorage.removeItem("documentId");
   // Set current user to {} which will set isAuthenticated to false
   dispatch(setForgeAccess({}));
+  dispatch(setViewerAccess({}));
   // Go to /
-  history.push("/");
+  if (history) {
+    history.push("/");
+  }
 };

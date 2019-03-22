@@ -22,17 +22,17 @@ export const COLUMNS = [
 ];
 
 export const OPTIONS = {
-  minimumColWidth: 100,
+  minimumColWidth: 10,
   expandAll: false,
   height: 500,
   canSelect: true
 };
 
-export const HANDLERS = {
-  onSelectRow(row) {
-    console.log(row);
-  }
-};
+// export const HANDLERS = {
+//   onSelectRow(row) {
+//     console.log(row);
+//   }
+// };
 
 export const setData = (data, objectInfo, parentId = -1, index = 0) => {
   objectInfo.map(object => {

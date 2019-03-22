@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+
+}
+
+.sidenav {
+  width: 40vw;
+}
+
+.object-info {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+.toggle-button {
+  width: 100%;
+  background: #72a5f7;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+  box-shadow: 0 1px;
+  margin-bottom: 2px;
+}
+
+.price-selected {
+  background: #ACCEF7;
+}
+
+button:hover {
+  background: #1267f2;
+}
+
+.content {
+  width: 60vw;
+}

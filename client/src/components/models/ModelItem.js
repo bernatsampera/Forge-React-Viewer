@@ -14,30 +14,22 @@ export class ModelItem extends Component {
     return (
       <div className="container border rounded">
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-10">
             <div className="row">
               <span className="col-lg-6"> ObjectKey: {objectKey}</span>
               <span className="col-lg-6"> Size: {size} bytes</span>
             </div>
           </div>
           <Link
-            className="col-md-1 btn btn-sm btn-primary"
+            className="btn btn-sm btn-primary col-md-1"
             to={`/bucket/detail/${bucketKey}/${objectId}`}
             // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
             // So it will be splitted in two different params objectid and filename
           >
             Load App
           </Link>
-          <Link
-            className="col-md-1 btn btn-sm btn-primary"
-            to={`/bucket/detail/viewer/${bucketKey}/${objectId}`}
-            // ObjectId Format: urn:adsk.objects:os.object:duvgrzriu_tutorial_bucket/rst_basic_sample_project.rvt
-            // So it will be splitted in two different params objectid and filename
-          >
-            View Model
-          </Link>
           <button
-            className="btn btn-danger col-md-2"
+            className="btn btn-sm btn-danger col-md-1"
             onClick={this.handleClick.bind(this, bucketKey, objectKey)}
           >
             Delete

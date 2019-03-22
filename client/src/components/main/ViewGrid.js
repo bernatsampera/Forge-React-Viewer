@@ -1,21 +1,21 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
 import TreeList from "react-treelist";
-import { COLUMNS, OPTIONS, HANDLERS, setData } from "./GridOptions";
+import { COLUMNS, OPTIONS, setData } from "./GridOptions";
 import Spinner from "../common/Spinner";
 import "react-treelist/build/css/index.css";
 
 export class ViewGrid extends Component {
   render() {
-    const { objectInfo, loading } = this.props.forgeDerivative;
-    let viewgridContent;
-
-    if (objectInfo === null || loading) {
-      viewgridContent = <Spinner />;
-    } else {
-      viewgridContent = (
+    const { onSelectRow, objectInfo } = this.props;
+    const HANDLERS = {
+      onSelectRow(elem) {
+        onSelectRow(elem);
+      }
+    };
+    return (
+      <div>
+        {" "}
         <TreeList
           data={setData([], objectInfo)}
           columns={COLUMNS}
@@ -25,22 +25,14 @@ export class ViewGrid extends Component {
           parentId={"parentId"}
           style={{ overflow: "auto" }}
         />
-      );
-    }
-
-    return <div>{viewgridContent}</div>;
+      </div>
+    );
   }
 }
 
 ViewGrid.propTypes = {
-  forgeDerivative: PropTypes.object.isRequired
+  onSelectRow: PropTypes.func.isRequired,
+  objectInfo: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => ({
-  forgeDerivative: state.forgeDerivative
-});
-
-export default connect(
-  mapStateToProps,
-  {}
-)(ViewGrid);
+export default ViewGrid;

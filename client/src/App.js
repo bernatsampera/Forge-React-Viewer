@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { removeAccess, setForgeAccess } from "./actions/forgeAuthActions";
-
 import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/lib/integration/react";
@@ -11,7 +10,6 @@ import Navbar from "./components/layout/Navbar";
 import Dashboard from "./components/dashboard/Dashboard";
 import Buckets from "./components/buckets/Buckets";
 import Models from "./components/models/Models";
-import Viewer from "./components/viewer/Viewer";
 import CreateBucket from "./components/buckets/CreateBucket";
 import Spinner from "./components/common/Spinner";
 import Login from "./components/auth/Login";
@@ -27,6 +25,7 @@ if (localStorage.access_token) {
   store.dispatch(setForgeAccess(decoded));
   // Check for expired token
   const currentTime = Date.now() / 1000;
+  var date = new Date(decoded.exp * 1000);
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(removeAccess());
@@ -51,11 +50,6 @@ class App extends Component {
                 exact
                 path="/bucket/detail/:bucketKey"
                 component={Models}
-              />
-              <Route
-                exact
-                path="/bucket/detail/viewer/:bucketKey/:objectId/:filename"
-                component={Viewer}
               />
               <Route
                 exact
