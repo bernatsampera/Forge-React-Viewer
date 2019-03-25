@@ -35,7 +35,8 @@ export const OPTIONS = {
 // };
 
 export const setData = (data, objectInfo, parentId = -1, index = 0) => {
-  objectInfo.map(object => {
+  objectInfo.forEach(object => {
+    // Changed map for forEach 25/3/2019
     switch (index) {
       case 0:
         data.push({ id: object.objectid, category: object.name });

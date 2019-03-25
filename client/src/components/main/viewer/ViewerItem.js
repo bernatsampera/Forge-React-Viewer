@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getViewerAccess } from "../../actions/forgeAuthActions";
+import { getViewerAccess } from "../../../actions/forgeAuthActions";
 import jQuery from "jquery";
-import isEmpty from "../../validation/is-empty";
-import isValid from "../../validation/is-valid";
+import isEmpty from "../../../validation/is-empty";
+import isValid from "../../../validation/is-valid";
 
 export class ViewerItem extends Component {
   constructor(props) {
@@ -143,9 +143,8 @@ export class ViewerItem extends Component {
   }
 
   render() {
-    const { itemSelected, viewer } = this.state;
+    const { itemSelected } = this.state;
     const { displayViewer } = this.props;
-    let viewerContent;
 
     return (
       <div style={!displayViewer ? { visibility: "hidden" } : {}}>

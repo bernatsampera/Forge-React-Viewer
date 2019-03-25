@@ -11,14 +11,6 @@ export default function DisplayElement({ elem }) {
       elem["element"] ||
       "nomatch";
 
-    let type = elem["category"]
-      ? "category"
-      : elem["family"]
-      ? "family"
-      : elem["type"]
-      ? "type"
-      : "element";
-
     content = (
       <div>
         <span className="display-5">

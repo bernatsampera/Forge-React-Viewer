@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { selectItem } from "../../actions/forgeViewerActions";
+import { selectItem } from "../../../actions/forgeViewerActions";
 import PropTypes from "prop-types";
 import TreeView from "react-treeview";
 import "./Tree.css";

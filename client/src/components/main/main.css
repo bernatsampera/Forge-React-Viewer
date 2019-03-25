@@ -1,10 +1,11 @@
 .main {
   display: flex;
-
+  width: 95%;
+  margin: auto;
 }
 
 .sidenav {
-  width: 40vw;
+  width: 40%;
 }
 
 .object-info {
@@ -32,5 +33,5 @@ button:hover {
 }
 
 .content {
-  width: 60vw;
+  width: 60%;
 }

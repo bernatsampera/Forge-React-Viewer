@@ -2,7 +2,7 @@ import { CONVERT_MODEL, POST_LOADING, GET_OBJECT_INFO } from "../actions/types";
 
 const initialState = {
   urn: "",
-  objectInfo: {},
+  objectInfo: null,
   loading: false
 };
 

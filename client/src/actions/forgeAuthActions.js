@@ -1,7 +1,6 @@
 import { SET_FORGE_ACCESS, SET_VIEWER_ACCESS } from "./types";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import moment from "moment";
 
 // Login - Get Forge Access - Auth
 export const getForgeAccess = (

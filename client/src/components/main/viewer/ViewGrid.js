@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TreeList from "react-treelist";
 import { COLUMNS, OPTIONS, setData } from "./GridOptions";
-import Spinner from "../common/Spinner";
 import "react-treelist/build/css/index.css";
 
 export class ViewGrid extends Component {

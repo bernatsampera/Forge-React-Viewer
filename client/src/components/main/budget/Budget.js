@@ -4,6 +4,7 @@ import DisplayElement from "./element/DisplayElement";
 import DisplayPrice from "./element/DisplayPrice";
 import PriceList from "./PriceList";
 import RecordList from "./RecordList";
+import isEmpty from "../../../validation/is-empty";
 
 export class Budget extends Component {
   constructor(props) {
@@ -26,6 +27,14 @@ export class Budget extends Component {
     const { elem } = this.props;
     const { priceSelected } = this.state;
 
+    if (isEmpty(elem)) {
+      return false;
+    }
+
+    if (isEmpty(priceSelected)) {
+      return false;
+    }
+
     let name =
       elem["category"] ||
       elem["family"] ||
@@ -39,7 +48,8 @@ export class Budget extends Component {
     };
 
     const record = {
-      record: `Elem: ${name}, price: ${priceSelected}`,
+      id: `r${elem.id}`,
+      record: `Elem: ${name}, price: ${priceSelected} €`,
       parentId: elem.id
     };
 
@@ -59,8 +69,6 @@ export class Budget extends Component {
   render() {
     const { elem } = this.props;
     const { priceSelected, recordInfo } = this.state;
-    let elemContent;
-    let priceContent;
 
     return (
       <div>
@@ -70,16 +78,20 @@ export class Budget extends Component {
           priceSelected={this.state.priceSelected}
         />
         <div className="row">
-          <div className="col-sm-10">
+          <div className="col-sm-11">
             {" "}
             <DisplayElement elem={elem} />
             <DisplayPrice price={priceSelected} />
           </div>
-
-          <button className="btn btn-success col-sm-2" onClick={this.addRecord}>
-            {" "}
-            Add Record{" "}
-          </button>
+          <div className="col-sm-12">
+            <button
+              className="btn btn-sm btn-success col-sm-3 float-right"
+              onClick={this.addRecord}
+            >
+              {" "}
+              Add Record{" "}
+            </button>
+          </div>
         </div>
 
         <RecordList recordInfo={recordInfo} />

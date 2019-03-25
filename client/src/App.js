@@ -25,7 +25,6 @@ if (localStorage.access_token) {
   store.dispatch(setForgeAccess(decoded));
   // Check for expired token
   const currentTime = Date.now() / 1000;
-  var date = new Date(decoded.exp * 1000);
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(removeAccess());

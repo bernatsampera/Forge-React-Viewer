@@ -6,12 +6,11 @@ import {
   getTreeInfo,
   convertModel
 } from "../../actions/forgeDerivativeActions";
-import ViewGrid from "./ViewGrid";
-import ViewerItem from "../viewer/ViewerItem";
+import ViewGrid from "./viewer/ViewGrid";
+import ViewerItem from "./viewer/ViewerItem";
 import Budget from "./budget/Budget";
-import Tree from "../viewer/Tree";
+import Tree from "./viewer/Tree";
 import CircleSpinner from "../common/CircleSpinner";
-import jQuery from "jquery";
 
 import "./main.css";
 
@@ -57,17 +56,17 @@ export class Main extends Component {
 
   // Helper Functions
   appButtonStyle = () => ({
-    background: this.state.show == "app" ? "#1267f2" : ""
+    background: this.state.show === "app" ? "#1267f2" : ""
   });
 
   viewerButtonStyle = () => ({
-    background: this.state.show == "viewer" ? "#1267f2" : ""
+    background: this.state.show === "viewer" ? "#1267f2" : ""
   });
   // End Helper Functions
 
   render() {
     const { bucketKey } = this.props.match.params;
-    const { show, viewerLoaded, selectedElem } = this.state;
+    const { show, selectedElem } = this.state;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let mainContent;
     let sidenavContent;
@@ -105,7 +104,6 @@ export class Main extends Component {
                 className="btn btn-sm toggle-button col-6"
                 style={this.appButtonStyle()}
                 onClick={this.displayApp}
-                disabled={!viewerLoaded}
               >
                 {" "}
                 App{" "}
@@ -123,7 +121,7 @@ export class Main extends Component {
           </div>
           <div className="content">
             <ViewerItem
-              displayViewer={show == "app" ? false : true}
+              displayViewer={show === "app" ? false : true}
               id="viewer"
               loadViewer={this.loadViewer}
               urn={urn}
