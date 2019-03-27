@@ -76,23 +76,26 @@ export class Budget extends Component {
   }
 
   render() {
+    const { displayRecords } = this.props;
     const { itemSelected } = this.props.budget;
     const { priceSelected, recordInfo } = this.state;
 
     return (
       <div>
         <h1>Budget</h1>
-        <PriceList
-          selectPrice={this.selectPrice.bind(this)}
-          priceSelected={this.state.priceSelected}
-        />
-        <div className="row">
-          <div className="col-sm-11">
+        <div className="row budget">
+          <div className="col-sm-5 priceList">
+            <PriceList
+              selectPrice={this.selectPrice.bind(this)}
+              priceSelected={this.state.priceSelected}
+            />
+          </div>
+          <div className="col-sm-5">
             {" "}
             <DisplayElement elem={itemSelected} />
             <DisplayPrice price={priceSelected} />
           </div>
-          <div className="col-sm-12">
+          <div className="col-sm-8">
             <button
               className="btn btn-sm btn-danger col-sm-3 float-right"
               onClick={this.deleteAllRecords}
@@ -109,9 +112,10 @@ export class Budget extends Component {
             </button>
           </div>
         </div>
-
-        <RecordList recordInfo={recordInfo} />
-      </div>
+        <div className="recordList">
+          {displayRecords ? <RecordList /> : ""}
+        </div>
+      </div >
     );
   }
 }
@@ -120,6 +124,7 @@ Budget.propTypes = {
   addRecord: PropTypes.func.isRequired,
   deleteAllRecords: PropTypes.func.isRequired,
   deselectBudgetItem: PropTypes.func.isRequired,
+  displayRecords: PropTypes.bool.isRequired,
   elem: PropTypes.object
 };
 
