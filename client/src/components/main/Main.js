@@ -6,6 +6,7 @@ import {
   getTreeInfo,
   convertModel
 } from "../../actions/forgeDerivativeActions";
+import { selectBudgetItem } from "../../actions/budgetActions";
 import ViewGrid from "./viewer/ViewGrid";
 import ViewerItem from "./viewer/ViewerItem";
 import Budget from "./budget/Budget";
@@ -20,8 +21,7 @@ export class Main extends Component {
 
     this.state = {
       show: "app",
-      viewerLoaded: false,
-      selectedElem: null
+      viewerLoaded: false
     };
 
     this.displayApp = this.displayApp.bind(this);
@@ -51,7 +51,7 @@ export class Main extends Component {
   }
 
   onSelectRow(elem) {
-    this.setState({ selectedElem: elem });
+    this.props.selectBudgetItem(elem);
   }
 
   // Helper Functions
@@ -66,7 +66,7 @@ export class Main extends Component {
 
   render() {
     const { bucketKey } = this.props.match.params;
-    const { show, selectedElem } = this.state;
+    const { show } = this.state;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let mainContent;
     let sidenavContent;
@@ -80,7 +80,7 @@ export class Main extends Component {
         sidenavContent = (
           <ViewGrid onSelectRow={this.onSelectRow} objectInfo={objectInfo} />
         );
-        displayContent = <Budget elem={selectedElem} />;
+        displayContent = <Budget />;
       } else {
         // Display Viewer
         const object1 = {
@@ -139,6 +139,7 @@ export class Main extends Component {
 Main.propTypes = {
   getTreeInfo: PropTypes.func.isRequired,
   convertModel: PropTypes.func.isRequired,
+  selectBudgetItem: PropTypes.func.isRequired,
   forgeDerivative: PropTypes.object.isRequired
 };
 
@@ -148,5 +149,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTreeInfo, convertModel }
+  { getTreeInfo, convertModel, selectBudgetItem }
 )(Main);

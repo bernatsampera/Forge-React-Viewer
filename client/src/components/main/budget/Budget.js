@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  addRecord,
+  deleteAllRecords,
+  deselectBudgetItem
+} from "../../../actions/budgetActions";
 import PropTypes from "prop-types";
 import DisplayElement from "./element/DisplayElement";
 import DisplayPrice from "./element/DisplayPrice";
@@ -11,23 +17,30 @@ export class Budget extends Component {
     super(props);
 
     this.state = {
-      priceSelected: null,
-      recordInfo: []
+      priceSelected: null
     };
 
     this.selectPrice = this.selectPrice.bind(this);
     this.addRecord = this.addRecord.bind(this);
+    this.deleteAllRecords = this.deleteAllRecords.bind(this);
   }
 
   selectPrice(price) {
     this.setState({ priceSelected: price });
   }
 
+  deleteAllRecords() {
+    this.props.deleteAllRecords();
+  }
+
   addRecord() {
-    const { elem } = this.props;
+    const { itemSelected, records } = this.props.budget;
     const { priceSelected } = this.state;
 
-    if (isEmpty(elem)) {
+    if (
+      isEmpty(itemSelected) ||
+      records.filter(elem => elem.id == itemSelected.id).length > 0
+    ) {
       return false;
     }
 
@@ -36,38 +49,34 @@ export class Budget extends Component {
     }
 
     let name =
-      elem["category"] ||
-      elem["family"] ||
-      elem["type"] ||
-      elem["element"] ||
+      itemSelected["category"] ||
+      itemSelected["family"] ||
+      itemSelected["type"] ||
+      itemSelected["element"] ||
       "nomatch";
 
     const recordName = {
-      id: elem.id,
+      id: itemSelected.id,
       name: name
     };
 
     const record = {
-      id: `r${elem.id}`,
+      id: `r${itemSelected.id}`,
       record: `Elem: ${name}, price: ${priceSelected} €`,
-      parentId: elem.id
+      parentId: itemSelected.id
     };
 
-    this.setState(prevState => ({
-      recordInfo: [...prevState.recordInfo, recordName]
-    }));
-
-    this.setState(prevState => ({
-      recordInfo: [...prevState.recordInfo, record]
-    }));
+    this.props.addRecord(recordName);
+    this.props.addRecord(record);
 
     this.setState({
       priceSelected: null
     });
+    this.props.deselectBudgetItem();
   }
 
   render() {
-    const { elem } = this.props;
+    const { itemSelected } = this.props.budget;
     const { priceSelected, recordInfo } = this.state;
 
     return (
@@ -80,10 +89,17 @@ export class Budget extends Component {
         <div className="row">
           <div className="col-sm-11">
             {" "}
-            <DisplayElement elem={elem} />
+            <DisplayElement elem={itemSelected} />
             <DisplayPrice price={priceSelected} />
           </div>
           <div className="col-sm-12">
+            <button
+              className="btn btn-sm btn-danger col-sm-3 float-right"
+              onClick={this.deleteAllRecords}
+            >
+              {" "}
+              Delete All Records{" "}
+            </button>
             <button
               className="btn btn-sm btn-success col-sm-3 float-right"
               onClick={this.addRecord}
@@ -101,7 +117,17 @@ export class Budget extends Component {
 }
 
 Budget.propTypes = {
+  addRecord: PropTypes.func.isRequired,
+  deleteAllRecords: PropTypes.func.isRequired,
+  deselectBudgetItem: PropTypes.func.isRequired,
   elem: PropTypes.object
 };
 
-export default Budget;
+const mapStateToProps = state => ({
+  budget: state.budget
+});
+
+export default connect(
+  mapStateToProps,
+  { addRecord, deleteAllRecords, deselectBudgetItem }
+)(Budget);
