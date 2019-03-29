@@ -35,3 +35,12 @@ button:hover {
 .content {
   width: 60%;
 }
+
+.budget {
+  height: 50vh;
+}
+
+.priceList {
+  overflow: scroll;
+  height: 80%;
+}
