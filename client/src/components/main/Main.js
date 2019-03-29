@@ -21,13 +21,17 @@ export class Main extends Component {
 
     this.state = {
       show: "app",
-      viewerLoaded: false
+      viewerLoaded: false,
+      priceList: true,
+      estimation: true,
+      displayRecords: true
     };
 
     this.displayApp = this.displayApp.bind(this);
     this.displayViewer = this.displayViewer.bind(this);
     this.loadViewer = this.loadViewer.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
+    this.displayRecords = this.displayRecords.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +54,13 @@ export class Main extends Component {
     });
   }
 
+  displayPriceList(){
+    this.setState(prevState => ({priceList: !prevState.priceList}));
+  }
+  displayRecords(){
+    this.setState(prevState => ({displayRecords: !prevState.displayRecords}));
+  }
+
   onSelectRow(elem) {
     this.props.selectBudgetItem(elem);
   }
@@ -66,7 +77,7 @@ export class Main extends Component {
 
   render() {
     const { bucketKey } = this.props.match.params;
-    const { show } = this.state;
+    const { show, priceList, displayRecords } = this.state;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let mainContent;
     let sidenavContent;
@@ -80,7 +91,8 @@ export class Main extends Component {
         sidenavContent = (
           <ViewGrid onSelectRow={this.onSelectRow} objectInfo={objectInfo} />
         );
-        displayContent = <Budget />;
+          // Prop to budget determine what components should be displayed
+          displayContent = <Budget displayRecords={displayRecords}/>;
       } else {
         // Display Viewer
         const object1 = {
@@ -89,7 +101,7 @@ export class Main extends Component {
         };
         sidenavContent = <Tree objectInfo={object1} />;
       }
-
+      
       mainContent = (
         <div className="main">
           <div className="sidenav">
@@ -117,6 +129,26 @@ export class Main extends Component {
                 Viewer{" "}
               </button>
             </div>
+            <div className="buttonsActivate">
+            <button
+                className="btn btn-sm toggle-button"
+                onClick={this.displayPriceList}
+              >
+              PriceList
+              </button>
+              <button
+                className="btn btn-sm toggle-button"
+                onClick={this.displayViewer}
+              >
+              ESTIMATION
+              </button>
+              <button
+                className="btn btn-sm toggle-button"
+                onClick={this.displayRecords}
+              >
+              Display Records
+              </button>
+            </div>
             <div className="object-info">{sidenavContent}</div>
           </div>
           <div className="content">
@@ -131,7 +163,6 @@ export class Main extends Component {
         </div>
       );
     }
-
     return <div>{mainContent}</div>;
   }
 }
