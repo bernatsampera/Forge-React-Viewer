@@ -40,6 +40,12 @@ button:hover {
   width: 60%;
 }
 
+.budgetContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .budget {
   height: 50vh;
 }

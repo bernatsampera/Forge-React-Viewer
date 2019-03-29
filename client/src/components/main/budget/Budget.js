@@ -85,14 +85,14 @@ export class Budget extends Component {
   }
 
   render() {
-    const { displayRecords } = this.props;
+    const { displayRecords, displayBudget } = this.props;
     const { itemSelected } = this.props.budget;
     const { priceSelected, recordInfo } = this.state;
-
-    return (
-      <div>
-        <h1>Budget</h1>
+    let budgetContent;
+    if (displayBudget) {
+      budgetContent = (
         <div className="row budget">
+          <h3 className="col-sm-12"> Budget Creator </h3>
           <div className="col-sm-6 mt-5">
             {" "}
             <DisplayElement elem={itemSelected} />
@@ -121,6 +121,14 @@ export class Budget extends Component {
             </button>
           </div>
         </div>
+      );
+    } else {
+      budgetContent = null;
+    }
+
+    return (
+      <div class="budgetContainer">
+        {budgetContent}
         <div className="recordList">{displayRecords ? <RecordList /> : ""}</div>
       </div>
     );
@@ -131,6 +139,7 @@ Budget.propTypes = {
   addRecord: PropTypes.func.isRequired,
   deleteAllRecords: PropTypes.func.isRequired,
   deselectBudgetItem: PropTypes.func.isRequired,
+  displayBudget: PropTypes.bool.isRequired,
   displayRecords: PropTypes.bool.isRequired,
   elem: PropTypes.object
 };

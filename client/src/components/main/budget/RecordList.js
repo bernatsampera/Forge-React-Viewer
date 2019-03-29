@@ -10,7 +10,8 @@ export class RecordList extends Component {
     const { records } = this.props.budget;
     const HANDLERS = {};
     return (
-      <div>
+      <div className="mt-3">
+        <h3> Record List </h3>
         <TreeList
           data={records}
           columns={COLUMNS}

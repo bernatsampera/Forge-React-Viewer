@@ -24,14 +24,15 @@ export class Main extends Component {
       viewerLoaded: false,
       priceList: true,
       estimation: true,
-      displayRecords: true
+      displayRecords: true,
+      displayBudget: true
     };
 
     this.displayApp = this.displayApp.bind(this);
     this.displayViewer = this.displayViewer.bind(this);
     this.loadViewer = this.loadViewer.bind(this);
     this.onSelectRow = this.onSelectRow.bind(this);
-    this.displayRecords = this.displayRecords.bind(this);
+    this.handleDisplay = this.handleDisplay.bind(this);
   }
 
   componentDidMount() {
@@ -58,8 +59,9 @@ export class Main extends Component {
     this.setState(prevState => ({ priceList: !prevState.priceList }));
   }
 
-  displayRecords() {
-    this.setState(prevState => ({ displayRecords: !prevState.displayRecords }));
+  handleDisplay(e) {
+    let name = e.target.name;
+    this.setState(prevState => ({ [name]: !prevState[name] }));
   }
 
   onSelectRow(elem) {
@@ -78,7 +80,7 @@ export class Main extends Component {
 
   render() {
     const { bucketKey } = this.props.match.params;
-    const { show, priceList, displayRecords } = this.state;
+    const { show, priceList, displayRecords, displayBudget } = this.state;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let mainContent;
     let sidenavContent;
@@ -93,7 +95,12 @@ export class Main extends Component {
           <ViewGrid onSelectRow={this.onSelectRow} objectInfo={objectInfo} />
         );
         // Prop to budget determine what components should be displayed
-        displayContent = <Budget displayRecords={displayRecords} />;
+        displayContent = (
+          <Budget
+            displayRecords={displayRecords}
+            displayBudget={displayBudget}
+          />
+        );
       } else {
         // Display Viewer
         const object1 = {
@@ -131,25 +138,33 @@ export class Main extends Component {
               </button>
             </div>
             <div className="buttonsActivate mt-3">
-              {/* <button
-              className="btn btn-sm toggle-button"
-              onClick={this.displayPriceList}
-            >
-            PriceList
-            </button>
-            <button
-              className="btn btn-sm toggle-button"
-              onClick={this.displayViewer}
-            >
-            ESTIMATION
-            </button> */}
               <div className="form-group">
                 <div className="form-check">
                   <input
                     className="form-check-input mt-2"
+                    name="displayBudget"
                     type="checkbox"
                     id="displayRecordsCheckBox"
-                    onChange={this.displayRecords}
+                    checked={displayBudget}
+                    onChange={this.handleDisplay}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="displayRecordsCheckBox"
+                  >
+                    Display Budget Creator
+                  </label>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="form-check">
+                  <input
+                    className="form-check-input mt-2"
+                    name="displayRecords"
+                    type="checkbox"
+                    id="displayRecordsCheckBox"
+                    checked={displayRecords}
+                    onChange={this.handleDisplay}
                   />
                   <label
                     className="form-check-label"
