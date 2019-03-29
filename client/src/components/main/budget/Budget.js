@@ -93,38 +93,36 @@ export class Budget extends Component {
       <div>
         <h1>Budget</h1>
         <div className="row budget">
-          <div className="col-sm-5 priceList">
+          <div className="col-sm-6 mt-5">
+            {" "}
+            <DisplayElement elem={itemSelected} />
+            <DisplayPrice price={priceSelected} />
+          </div>
+          <div className="col-sm-6 priceList">
             <PriceList
               selectPrice={this.selectPrice.bind(this)}
               priceSelected={this.state.priceSelected}
             />
           </div>
-          <div className="col-sm-5">
-            {" "}
-            <DisplayElement elem={itemSelected} />
-            <DisplayPrice price={priceSelected} />
-          </div>
-          <div className="col-sm-8">
+          <div className="col-sm-12">
             <button
-              className="btn btn-sm btn-danger col-sm-3 float-right"
-              onClick={this.deleteAllRecords}
-            >
-              {" "}
-              Delete All Records{" "}
-            </button>
-            <button
-              className="btn btn-sm btn-success col-sm-3 float-right"
+              className="btn btn-sm btn-success col-sm-4 float-left m-2"
               onClick={this.addRecord}
             >
               {" "}
               Add Record{" "}
             </button>
+            <button
+              className="btn btn-sm btn-danger col-sm-4  float-right m-2"
+              onClick={this.deleteAllRecords}
+            >
+              {" "}
+              Delete All Records{" "}
+            </button>
           </div>
         </div>
-        <div className="recordList">
-          {displayRecords ? <RecordList /> : ""}
-        </div>
-      </div >
+        <div className="recordList">{displayRecords ? <RecordList /> : ""}</div>
+      </div>
     );
   }
 }

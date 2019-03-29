@@ -1,7 +1,7 @@
 .main {
   display: flex;
-  width: 95%;
-  margin: auto;
+  width: 98%;
+  margin-right: 2%;
 }
 
 .sidenav {
@@ -26,6 +26,10 @@
 
 .price-selected {
   background: #ACCEF7;
+}
+
+.item-selected {
+  background: #d2ffc4;
 }
 
 button:hover {

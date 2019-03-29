@@ -27,8 +27,8 @@ export default function DisplayElement({ elem }) {
   }
 
   return (
-    <div className="container">
-      <div className={`row pl-5 p-2 bg-light`}>{content}</div>
+    <div className={`container ${elem ? "item-selected" : "bg-light"}`}>
+      <div className={`row pl-5 p-2`}>{content}</div>
     </div>
   );
 }

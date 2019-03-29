@@ -54,11 +54,12 @@ export class Main extends Component {
     });
   }
 
-  displayPriceList(){
-    this.setState(prevState => ({priceList: !prevState.priceList}));
+  displayPriceList() {
+    this.setState(prevState => ({ priceList: !prevState.priceList }));
   }
-  displayRecords(){
-    this.setState(prevState => ({displayRecords: !prevState.displayRecords}));
+
+  displayRecords() {
+    this.setState(prevState => ({ displayRecords: !prevState.displayRecords }));
   }
 
   onSelectRow(elem) {
@@ -91,8 +92,8 @@ export class Main extends Component {
         sidenavContent = (
           <ViewGrid onSelectRow={this.onSelectRow} objectInfo={objectInfo} />
         );
-          // Prop to budget determine what components should be displayed
-          displayContent = <Budget displayRecords={displayRecords}/>;
+        // Prop to budget determine what components should be displayed
+        displayContent = <Budget displayRecords={displayRecords} />;
       } else {
         // Display Viewer
         const object1 = {
@@ -101,7 +102,7 @@ export class Main extends Component {
         };
         sidenavContent = <Tree objectInfo={object1} />;
       }
-      
+
       mainContent = (
         <div className="main">
           <div className="sidenav">
@@ -129,25 +130,35 @@ export class Main extends Component {
                 Viewer{" "}
               </button>
             </div>
-            <div className="buttonsActivate">
+            <div className="buttonsActivate mt-3">
+              {/* <button
+              className="btn btn-sm toggle-button"
+              onClick={this.displayPriceList}
+            >
+            PriceList
+            </button>
             <button
-                className="btn btn-sm toggle-button"
-                onClick={this.displayPriceList}
-              >
-              PriceList
-              </button>
-              <button
-                className="btn btn-sm toggle-button"
-                onClick={this.displayViewer}
-              >
-              ESTIMATION
-              </button>
-              <button
-                className="btn btn-sm toggle-button"
-                onClick={this.displayRecords}
-              >
-              Display Records
-              </button>
+              className="btn btn-sm toggle-button"
+              onClick={this.displayViewer}
+            >
+            ESTIMATION
+            </button> */}
+              <div className="form-group">
+                <div className="form-check">
+                  <input
+                    className="form-check-input mt-2"
+                    type="checkbox"
+                    id="displayRecordsCheckBox"
+                    onChange={this.displayRecords}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="displayRecordsCheckBox"
+                  >
+                    Display Record List
+                  </label>
+                </div>
+              </div>
             </div>
             <div className="object-info">{sidenavContent}</div>
           </div>
