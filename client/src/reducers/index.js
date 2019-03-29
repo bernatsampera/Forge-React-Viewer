@@ -5,6 +5,7 @@ import forgeManagementReducer from "./forgeManagementReducer";
 import forgeDerivativeReducer from "./forgeDerivativeReducer";
 import forgeViewerReducer from "./forgeViewerReducer";
 import budgetReducer from "./budgetReducer";
+import messageReducer from "./messageReducer";
 
 export default combineReducers({
   forgeAuth: forgeAuthReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   forgeDerivative: forgeDerivativeReducer,
   forgeViewer: forgeViewerReducer,
   budget: budgetReducer,
-  errors: errorReducer
+  errors: errorReducer,
+  messages: messageReducer
 });

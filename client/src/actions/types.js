@@ -1,4 +1,5 @@
 export const GET_ERRORS = "GET_ERRORS";
+export const CREATE_MESSAGE = "CREATE_MESSAGE";
 export const SET_FORGE_ACCESS = "SET_FORGE_ACCESS";
 export const SET_VIEWER_ACCESS = "SET_VIEWER_ACCESS";
 export const GET_BUCKETS = "GET_BUCKETS";

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { removeAccess, setForgeAccess } from "./actions/forgeAuthActions";
@@ -6,6 +6,10 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./store";
 import { PersistGate } from "redux-persist/lib/integration/react";
 
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+import Alerts from "./components/layout/Alerts";
 import Navbar from "./components/layout/Navbar";
 import Dashboard from "./components/dashboard/Dashboard";
 import Buckets from "./components/buckets/Buckets";
@@ -16,6 +20,12 @@ import Login from "./components/auth/Login";
 import Main from "./components/main/Main";
 
 import "./App.css";
+
+// Alert Options
+const alertOptions = {
+  timeout: 3000,
+  position: "top center"
+};
 
 // Check for Forge Token
 if (localStorage.access_token) {
@@ -38,25 +48,30 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={<Spinner />} persistor={persistor}>
-          <Router>
-            <div className="App">
-              <Navbar />
-              <Route exact path="/" component={Dashboard} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/buckets" component={Buckets} />
-              <Route exact path="/bucket/create" component={CreateBucket} />
-              <Route
-                exact
-                path="/bucket/detail/:bucketKey"
-                component={Models}
-              />
-              <Route
-                exact
-                path="/bucket/detail/:bucketKey/:objectId/:filename"
-                component={Main}
-              />
-            </div>
-          </Router>
+          <AlertProvider template={AlertTemplate} {...alertOptions}>
+            <Router>
+              <Fragment>
+                <Navbar />
+                <Alerts />
+                <div className="App">
+                  <Route exact path="/" component={Dashboard} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/buckets" component={Buckets} />
+                  <Route exact path="/bucket/create" component={CreateBucket} />
+                  <Route
+                    exact
+                    path="/bucket/detail/:bucketKey"
+                    component={Models}
+                  />
+                  <Route
+                    exact
+                    path="/bucket/detail/:bucketKey/:objectId/:filename"
+                    component={Main}
+                  />
+                </div>
+              </Fragment>
+            </Router>
+          </AlertProvider>
         </PersistGate>
       </Provider>
     );

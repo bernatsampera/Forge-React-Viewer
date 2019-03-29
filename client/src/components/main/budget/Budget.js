@@ -5,6 +5,12 @@ import {
   deleteAllRecords,
   deselectBudgetItem
 } from "../../../actions/budgetActions";
+import {
+  elementNotSelected,
+  priceNotSelected,
+  elementAlreadyAdded
+} from "../../../actions/showErrorsActions";
+import { recordCreated } from "../../../actions/showMessagesActions";
 import PropTypes from "prop-types";
 import DisplayElement from "./element/DisplayElement";
 import DisplayPrice from "./element/DisplayPrice";
@@ -37,14 +43,16 @@ export class Budget extends Component {
     const { itemSelected, records } = this.props.budget;
     const { priceSelected } = this.state;
 
-    if (
-      isEmpty(itemSelected) ||
-      records.filter(elem => elem.id == itemSelected.id).length > 0
-    ) {
+    if (isEmpty(itemSelected)) {
+      this.props.elementNotSelected();
+      return false;
+    } else if (records.filter(elem => elem.id == itemSelected.id).length > 0) {
+      this.props.elementAlreadyAdded();
       return false;
     }
 
     if (isEmpty(priceSelected)) {
+      this.props.priceNotSelected();
       return false;
     }
 
@@ -68,6 +76,7 @@ export class Budget extends Component {
 
     this.props.addRecord(recordName);
     this.props.addRecord(record);
+    this.props.recordCreated();
 
     this.setState({
       priceSelected: null
@@ -129,5 +138,13 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addRecord, deleteAllRecords, deselectBudgetItem }
+  {
+    addRecord,
+    deleteAllRecords,
+    deselectBudgetItem,
+    elementNotSelected,
+    priceNotSelected,
+    elementAlreadyAdded,
+    recordCreated
+  }
 )(Budget);
