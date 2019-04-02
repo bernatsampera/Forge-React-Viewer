@@ -17,6 +17,9 @@ import DisplayPrice from "./element/DisplayPrice";
 import PriceList from "./PriceList";
 import RecordList from "./RecordList";
 import isEmpty from "../../../validation/is-empty";
+import M3 from "./M3/M3";
+import M2 from "./M2/M2";
+import M1 from "./M1/M1";
 
 export class Budget extends Component {
   constructor(props) {
@@ -35,6 +38,7 @@ export class Budget extends Component {
     this.setState({ priceSelected: price });
   }
 
+  // Can be moved to M3
   deleteAllRecords() {
     this.props.deleteAllRecords();
   }
@@ -85,51 +89,46 @@ export class Budget extends Component {
   }
 
   render() {
-    const { displayRecords, displayBudget } = this.props;
+    const {} = this.props;
     const { itemSelected } = this.props.budget;
-    const { priceSelected, recordInfo } = this.state;
+    const { priceSelected } = this.state;
     let budgetContent;
-    if (displayBudget) {
-      budgetContent = (
-        <div className="row budget">
-          <h3 className="col-sm-12"> Budget Creator </h3>
-          <div className="col-sm-6 mt-5">
-            {" "}
-            <DisplayElement elem={itemSelected} />
-            <DisplayPrice price={priceSelected} />
-          </div>
-          <div className="col-sm-6 priceList">
-            <PriceList
-              selectPrice={this.selectPrice.bind(this)}
-              priceSelected={this.state.priceSelected}
-            />
-          </div>
-          <div className="col-sm-12">
-            <button
-              className="btn btn-sm btn-success col-sm-4 float-left m-2"
-              onClick={this.addRecord}
-            >
-              {" "}
-              Add Record{" "}
-            </button>
-            <button
-              className="btn btn-sm btn-danger col-sm-4  float-right m-2"
-              onClick={this.deleteAllRecords}
-            >
-              {" "}
-              Delete All Records{" "}
-            </button>
-          </div>
+    budgetContent = (
+      <div className="row budget">
+        <h3 className="col-sm-12"> Budget Creator </h3>
+        <div className="col-sm-6 mt-5">
+          {" "}
+          <DisplayElement elem={itemSelected} />
+          <DisplayPrice price={priceSelected} />
         </div>
-      );
-    } else {
-      budgetContent = null;
-    }
+        <div className="col-sm-6 priceList">
+          <PriceList
+            selectPrice={this.selectPrice.bind(this)}
+            priceSelected={this.state.priceSelected}
+          />
+        </div>
+        <div className="col-sm-12">
+          <button
+            className="btn btn-sm btn-success col-sm-4 float-left m-2"
+            onClick={this.addRecord}
+          >
+            {" "}
+            Add Record{" "}
+          </button>
+          <button
+            className="btn btn-sm btn-danger col-sm-4  float-right m-2"
+            onClick={this.deleteAllRecords}
+          >
+            {" "}
+            Delete All Records{" "}
+          </button>
+        </div>
+      </div>
+    );
 
     return (
-      <div class="budgetContainer">
-        {budgetContent}
-        <div className="recordList">{displayRecords ? <RecordList /> : ""}</div>
+      <div className="budgetContainer">
+        <M1 /> <M2 /> <M3 />
       </div>
     );
   }
@@ -139,8 +138,6 @@ Budget.propTypes = {
   addRecord: PropTypes.func.isRequired,
   deleteAllRecords: PropTypes.func.isRequired,
   deselectBudgetItem: PropTypes.func.isRequired,
-  displayBudget: PropTypes.bool.isRequired,
-  displayRecords: PropTypes.bool.isRequired,
   elem: PropTypes.object
 };
 

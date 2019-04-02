@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TreeList from "react-treelist";
+import { connect } from "react-redux";
+import { selectBudgetItem } from "../../../../actions/budgetActions";
 import { COLUMNS, OPTIONS, setData } from "./GridOptions";
 import "react-treelist/build/css/index.css";
 
 export class ViewGrid extends Component {
   render() {
-    const { onSelectRow, objectInfo } = this.props;
+    const { objectInfo } = this.props.forgeDerivative;
+    const { selectBudgetItem } = this.props;
     const HANDLERS = {
       onSelectRow(elem) {
-        onSelectRow(elem);
+        selectBudgetItem(elem);
       }
     };
     return (
@@ -30,8 +33,15 @@ export class ViewGrid extends Component {
 }
 
 ViewGrid.propTypes = {
-  onSelectRow: PropTypes.func.isRequired,
-  objectInfo: PropTypes.array.isRequired
+  selectBudgetItem: PropTypes.func.isRequired,
+  forgeDerivative: PropTypes.object.isRequired
 };
 
-export default ViewGrid;
+const mapStateToProps = state => ({
+  forgeDerivative: state.forgeDerivative
+});
+
+export default connect(
+  mapStateToProps,
+  { selectBudgetItem }
+)(ViewGrid);

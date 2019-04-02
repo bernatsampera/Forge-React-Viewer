@@ -17,7 +17,7 @@ import Models from "./components/models/Models";
 import CreateBucket from "./components/buckets/CreateBucket";
 import Spinner from "./components/common/Spinner";
 import Login from "./components/auth/Login";
-import Main from "./components/main/Main";
+import Main from "./components/main2/Main"; // main/main2 to change between versions
 
 import "./App.css";
 

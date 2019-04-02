@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import {
   convertModel,
   getTreeInfo
-} from "../../actions/forgeDerivativeActions";
+} from "../../../actions/forgeDerivativeActions";
 import Tree from "./Tree";
-import Spinner from "../common/Spinner";
+import Spinner from "../../common/Spinner";
 import ViewerItem from "./ViewerItem";
-import isEmpty from "../../validation/is-empty";
+import isEmpty from "../../../validation/is-empty";
 
 class Viewer extends Component {
   componentDidMount() {
