@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 app.set("port", port);
 const server = app.listen(app.get("port"), function() {
   console.log("Server listening on port " + server.address().port);

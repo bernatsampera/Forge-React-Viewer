@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import Budget from "./budget/Budget";
-import {connect} from "react-redux";
-import {convertModel,getTreeInfo} from "../../actions/forgeDerivativeActions";
+import { connect } from "react-redux";
+import {
+  convertModel,
+  getTreeInfo
+} from "../../actions/forgeDerivativeActions";
 import PropTypes from "prop-types";
+import Design from "./design/Design";
 
 // This component changes the display between the viewer/design/budget pages
 export class Main extends Component {
@@ -16,7 +20,7 @@ export class Main extends Component {
     this.handleComponent = this.handleComponent.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const { objectId, filename } = this.props.match.params;
     this.props.convertModel(objectId, filename);
     this.props.getTreeInfo(objectId, filename);
@@ -37,7 +41,7 @@ export class Main extends Component {
         mainContent = <h1> Viewer </h1>;
         break;
       case "design":
-        mainContent = <h1> Design </h1>;
+        mainContent = <Design />;
         break;
       default:
         break;
@@ -80,7 +84,7 @@ export class Main extends Component {
 Main.propTypes = {
   convertModel: PropTypes.func.isRequired,
   getTreeInfo: PropTypes.func.isRequired
-}
+};
 
 export default connect(
   null,
