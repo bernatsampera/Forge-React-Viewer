@@ -95,8 +95,8 @@ export class Budget extends Component {
         <h3 className="col-sm-12"> Budget Creator </h3>
         <div className="col-sm-6 mt-5">
           {" "}
-          <DisplayElement elem={itemSelected} />
-          <DisplayPrice price={priceSelected} />
+          {/* <DisplayElement elem={itemSelected} />
+          <DisplayPrice price={priceSelected} /> */}
         </div>
         <div className="col-sm-12">
           <button

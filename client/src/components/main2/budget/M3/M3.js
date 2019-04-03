@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DisplayElement from "../element/DisplayElement";
 import DisplayPrice from "../element/DisplayPrice";
 import Buttons from "./Buttons";
+import isEmpty from "../../../../validation/is-empty";
 
 export class M3 extends Component {
   constructor(props) {
