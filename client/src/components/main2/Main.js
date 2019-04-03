@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Budget from "./budget/Budget";
+import {connect} from "react-redux";
+import {convertModel,getTreeInfo} from "../../actions/forgeDerivativeActions";
+import PropTypes from "prop-types";
 
 // This component changes the display between the viewer/design/budget pages
 export class Main extends Component {
@@ -7,12 +10,17 @@ export class Main extends Component {
     super(props);
 
     this.state = {
-      display: "budget"
+      display: "design"
     };
 
     this.handleComponent = this.handleComponent.bind(this);
   }
 
+  componentDidMount(){
+    const { objectId, filename } = this.props.match.params;
+    this.props.convertModel(objectId, filename);
+    this.props.getTreeInfo(objectId, filename);
+  }
   handleComponent(e) {
     this.setState({ display: e.target.name });
   }
@@ -68,5 +76,13 @@ export class Main extends Component {
     );
   }
 }
+//TODO: Fix the direct visualization of the M2 since if it is entered directly it generates an error when doing a foreach of something empty
+Main.propTypes = {
+  convertModel: PropTypes.func.isRequired,
+  getTreeInfo: PropTypes.func.isRequired
+}
 
-export default Main;
+export default connect(
+  null,
+  { getTreeInfo, convertModel }
+)(Main);

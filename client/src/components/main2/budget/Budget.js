@@ -12,10 +12,7 @@ import {
 } from "../../../actions/showErrorsActions";
 import { recordCreated } from "../../../actions/showMessagesActions";
 import PropTypes from "prop-types";
-import DisplayElement from "./element/DisplayElement";
-import DisplayPrice from "./element/DisplayPrice";
-import PriceList from "./PriceList";
-import RecordList from "./RecordList";
+import RecordList from "./M3/RecordList";
 import isEmpty from "../../../validation/is-empty";
 import M3 from "./M3/M3";
 import M2 from "./M2/M2";
@@ -100,12 +97,6 @@ export class Budget extends Component {
           {" "}
           <DisplayElement elem={itemSelected} />
           <DisplayPrice price={priceSelected} />
-        </div>
-        <div className="col-sm-6 priceList">
-          <PriceList
-            selectPrice={this.selectPrice.bind(this)}
-            priceSelected={this.state.priceSelected}
-          />
         </div>
         <div className="col-sm-12">
           <button

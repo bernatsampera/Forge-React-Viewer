@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { deleteRecord } from "../../../actions/budgetActions";
+import { deleteRecord } from "../../../../actions/budgetActions";
 import TreeList from "react-treelist";
 import { COLUMNS, OPTIONS } from "./RecordGridOptions";
 
