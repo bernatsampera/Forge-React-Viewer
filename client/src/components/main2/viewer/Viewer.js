@@ -13,7 +13,7 @@ import isEmpty from "../../../validation/is-empty";
 
 class Viewer extends Component {
   componentDidMount() {
-    const { objectId, filename } = this.props.match.params;
+    const { objectId, filename } = this.props;
     const { urn, objectInfo } = this.props.forgeDerivative;
 
     this.props.convertModel(objectId, filename);
@@ -21,7 +21,7 @@ class Viewer extends Component {
   }
 
   render() {
-    const { bucketKey } = this.props.match.params;
+    const { bucketKey } = this.props;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let viewerContent;
     let treeContent;
@@ -30,7 +30,7 @@ class Viewer extends Component {
     if (urn === null || loading) {
       viewerContent = <Spinner />;
     } else {
-      viewerContent = <ViewerItem urn={urn} />;
+      viewerContent = <ViewerItem displayViewer={true} id="viewer" urn={urn} />;
     }
 
     // Sets the tree of objects
@@ -47,12 +47,6 @@ class Viewer extends Component {
     return (
       <div className="Viewer">
         <div className="text-left pl-5">
-          <Link
-            to={`/bucket/detail/${bucketKey}`}
-            className="btn btn-sm btn-light mb-2 text-left"
-          >
-            Back To Model
-          </Link>
           <h3> Viewer Component </h3>
           {treeContent}
         </div>
@@ -64,7 +58,10 @@ class Viewer extends Component {
 
 Viewer.propTypes = {
   convertModel: PropTypes.func.isRequired,
-  getTreeInfo: PropTypes.func.isRequired
+  getTreeInfo: PropTypes.func.isRequired,
+  objectId: PropTypes.string.isRequired,
+  bucketKey: PropTypes.string.isRequired,
+  filename: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({

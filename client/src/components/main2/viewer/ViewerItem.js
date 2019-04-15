@@ -108,7 +108,6 @@ export class ViewerItem extends Component {
     this.setState({ viewer: viewer }, () => {
       this.setEvents();
     });
-    this.props.loadViewer();
   };
 
   onItemLoadFail = viewerErrorCode => {
@@ -176,7 +175,6 @@ const canvasStyle = {
 
 ViewerItem.propTypes = {
   getViewerAccess: PropTypes.func.isRequired,
-  loadViewer: PropTypes.func.isRequired,
   urn: PropTypes.string.isRequired,
   forgeViewer: PropTypes.object.isRequired,
   displayViewer: PropTypes.bool.isRequired

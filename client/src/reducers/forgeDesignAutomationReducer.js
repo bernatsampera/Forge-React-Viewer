@@ -1,7 +1,8 @@
-import { GET_ACTIVITIES } from "../actions/types";
+import { GET_ACTIVITIES, GET_MODEL_INFO } from "../actions/types";
 
 const initialState = {
-  activities: []
+  activities: [],
+  modelData: {} // TODO: Move modelData to another place
 };
 
 export default function(state = initialState, action) {
@@ -9,11 +10,16 @@ export default function(state = initialState, action) {
     case GET_ACTIVITIES:
       return {
         ...state,
-        activities: [...state.activities, action.payload]
+        activities: action.payload
       };
       break;
+    case GET_MODEL_INFO:
+      return {
+        ...state,
+        modelData: action.payload
+      };
     default:
-      return { ...state };
+      return state;
       break;
   }
 }

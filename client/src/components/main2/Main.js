@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import Budget from "./budget/Budget";
 import { connect } from "react-redux";
 import {
   convertModel,
   getTreeInfo
 } from "../../actions/forgeDerivativeActions";
 import PropTypes from "prop-types";
+import Budget from "./budget/Budget";
 import Design from "./design/Design";
+import Viewer from "./viewer/Viewer";
+import { ViewerItem } from "./viewer/ViewerItem";
 
 // This component changes the display between the viewer/design/budget pages
 export class Main extends Component {
@@ -30,6 +32,7 @@ export class Main extends Component {
   }
 
   render() {
+    const { bucketKey, filename, objectId } = this.props.match.params;
     const { display } = this.state;
     let mainContent;
 
@@ -38,10 +41,16 @@ export class Main extends Component {
         mainContent = <Budget />;
         break;
       case "viewer":
-        mainContent = <h1> Viewer </h1>;
+        mainContent = (
+          <Viewer
+            bucketKey={bucketKey}
+            filename={filename}
+            objectId={objectId}
+          />
+        );
         break;
       case "design":
-        mainContent = <Design />;
+        mainContent = <Design bucketKey={bucketKey} filename={filename} />;
         break;
       default:
         break;

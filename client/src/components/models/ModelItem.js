@@ -11,6 +11,7 @@ export class ModelItem extends Component {
 
   render() {
     const { objectKey, objectId, size, bucketKey } = this.props;
+
     return (
       <div className="container border rounded">
         <div className="row">

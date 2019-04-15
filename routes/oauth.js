@@ -11,7 +11,7 @@ router.post("/", (req, res) => {
   client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
 
   var scopes =
-    "data:read data:write data:create bucket:create bucket:read code:all";
+    "data:read data:write data:create bucket:create bucket:read code:all account:read account:write";
 
   Axios({
     method: "POST",

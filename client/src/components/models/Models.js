@@ -43,15 +43,17 @@ class Models extends Component {
       bucketContent = <Spinner />;
     } else {
       if (models.length > 0) {
-        bucketContent = models.map(model => (
-          <ModelItem
-            key={model.objectId}
-            bucketKey={bucketKey}
-            objectKey={model.objectKey}
-            objectId={model.objectId}
-            size={model.size}
-          />
-        ));
+        bucketContent = models
+          .filter(model => model.objectKey.indexOf("zzz") == -1)
+          .map(model => (
+            <ModelItem
+              key={model.objectId}
+              bucketKey={bucketKey}
+              objectKey={model.objectKey}
+              objectId={model.objectId}
+              size={model.size}
+            />
+          ));
       } else {
         bucketContent = <p>There are no models available</p>;
       }

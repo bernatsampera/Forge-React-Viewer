@@ -19,3 +19,4 @@ export const CONVERT_MODEL = "CONVERT_MODEL";
 export const GET_OBJECT_INFO = "GET_OBJECT_INFO";
 export const GET_ACTIVITIES = "GET_ACTIVITIES";
 export const GET_WORKITEMS = "GET_WORKITEMS";
+export const GET_MODEL_INFO = "GET_MODEL_INFO";
