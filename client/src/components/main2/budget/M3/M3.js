@@ -3,6 +3,7 @@ import DisplayElement from "../element/DisplayElement";
 import DisplayPrice from "../element/DisplayPrice";
 import Buttons from "./Buttons";
 import isEmpty from "../../../../validation/is-empty";
+import PropTypes from "prop-types";
 
 export class M3 extends Component {
   constructor(props) {
@@ -61,15 +62,23 @@ export class M3 extends Component {
   }
 
   render() {
+    const { itemSelected, priceSelected } = this.props;
     return (
-      /*       <div className="col-sm-6 mt-5">
-        {" "}
-        <DisplayElement elem={itemSelected} />
-        <DisplayPrice price={priceSelected} />
-      </div> */
-      <Buttons />
+      <div>
+        <div className="col-sm-6 mt-5">
+          {" "}
+          <DisplayElement elem={itemSelected} />
+          <DisplayPrice price={priceSelected} />
+        </div>
+        <Buttons />
+      </div>
     );
   }
 }
+
+M3.propTypes = {
+  itemSelected: PropTypes.string.isRequired,
+  priceSelected: PropTypes.object.isRequired
+};
 
 export default M3;

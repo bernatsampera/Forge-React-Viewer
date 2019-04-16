@@ -17,6 +17,8 @@ import isEmpty from "../../../validation/is-empty";
 import M3 from "./M3/M3";
 import M2 from "./M2/M2";
 import M1 from "./M1/M1";
+import { SortablePane, Pane } from "react-sortable-pane";
+import "./budget.css";
 
 export class Budget extends Component {
   constructor(props) {
@@ -26,13 +28,8 @@ export class Budget extends Component {
       priceSelected: null
     };
 
-    this.selectPrice = this.selectPrice.bind(this);
     this.addRecord = this.addRecord.bind(this);
     this.deleteAllRecords = this.deleteAllRecords.bind(this);
-  }
-
-  selectPrice(price) {
-    this.setState({ priceSelected: price });
   }
 
   // Can be moved to M3
@@ -87,39 +84,66 @@ export class Budget extends Component {
 
   render() {
     const {} = this.props;
-    const { itemSelected } = this.props.budget;
-    const { priceSelected } = this.state;
-    let budgetContent;
-    budgetContent = (
-      <div className="row budget">
-        <h3 className="col-sm-12"> Budget Creator </h3>
-        <div className="col-sm-6 mt-5">
-          {" "}
-          {/* <DisplayElement elem={itemSelected} />
-          <DisplayPrice price={priceSelected} /> */}
-        </div>
-        <div className="col-sm-12">
-          <button
-            className="btn btn-sm btn-success col-sm-4 float-left m-2"
-            onClick={this.addRecord}
-          >
-            {" "}
-            Add Record{" "}
-          </button>
-          <button
-            className="btn btn-sm btn-danger col-sm-4  float-right m-2"
-            onClick={this.deleteAllRecords}
-          >
-            {" "}
-            Delete All Records{" "}
-          </button>
-        </div>
-      </div>
-    );
+    const { itemSelected, priceSelected } = this.props.budget;
+    // let budgetContent;
+    // budgetContent = (
+    //   <div className="row budget">
+    //     <h3 className="col-sm-12"> Budget Creator </h3>
+    //     <div className="col-sm-6 mt-5">
+    //       {" "}
+    //       {/* <DisplayElement elem={itemSelected} />
+    //       <DisplayPrice price={priceSelected} /> */}
+    //     </div>
+    //     <div className="col-sm-12">
+    //       <button
+    //         className="btn btn-sm btn-success col-sm-4 float-left m-2"
+    //         onClick={this.addRecord}
+    //       >
+    //         {" "}
+    //         Add Record{" "}
+    //       </button>
+    //       <button
+    //         className="btn btn-sm btn-danger col-sm-4  float-right m-2"
+    //         onClick={this.deleteAllRecords}
+    //       >
+    //         {" "}
+    //         Delete All Records{" "}
+    //       </button>
+    //     </div>
+    //   </div>
+    // );
 
     return (
       <div className="budgetContainer">
-        <M1 /> <M2 /> <M3 />
+        <SortablePane
+          direction="horizontal"
+          margin={20}
+          defaultOrder={["m1", "m2", "m3"]}
+          disableEffect={true}
+          className="paneContainer"
+        >
+          <Pane
+            key="m1"
+            defaultSize={{ width: "25%", height: "90%" }}
+            className="pane"
+          >
+            <M1 />
+          </Pane>
+          <Pane
+            key="m2"
+            defaultSize={{ width: "40%", height: "90%" }}
+            className="pane"
+          >
+            <M2 />
+          </Pane>
+          <Pane
+            key="m3"
+            defaultSize={{ width: "30%", height: "90%" }}
+            className="pane"
+          >
+            <M3 itemSelected={itemSelected} priceSelected={priceSelected} />
+          </Pane>
+        </SortablePane>
       </div>
     );
   }

@@ -167,7 +167,7 @@ const canvasStyle = {
   position: "fixed",
   left: "40vw",
   right: "0px",
-  top: "50px",
+  top: "100px",
   bottom: "0px",
   zIndex: "1",
   backgroundColor: "#D8E1EA"

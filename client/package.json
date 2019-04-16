@@ -14,6 +14,8 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
+    "react-sortable-pane": "^1.0.4",
+    "react-tabs": "^3.0.0",
     "react-transition-group": "^2.7.1",
     "react-treelist": "^1.2.0",
     "react-treeview": "^0.4.7",

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import {
   convertModel,
   getTreeInfo
@@ -14,14 +13,12 @@ import isEmpty from "../../../validation/is-empty";
 class Viewer extends Component {
   componentDidMount() {
     const { objectId, filename } = this.props;
-    const { urn, objectInfo } = this.props.forgeDerivative;
 
     this.props.convertModel(objectId, filename);
     this.props.getTreeInfo(objectId, filename);
   }
 
   render() {
-    const { bucketKey } = this.props;
     const { urn, objectInfo, loading } = this.props.forgeDerivative;
     let viewerContent;
     let treeContent;
@@ -60,7 +57,6 @@ Viewer.propTypes = {
   convertModel: PropTypes.func.isRequired,
   getTreeInfo: PropTypes.func.isRequired,
   objectId: PropTypes.string.isRequired,
-  bucketKey: PropTypes.string.isRequired,
   filename: PropTypes.string.isRequired
 };
 
