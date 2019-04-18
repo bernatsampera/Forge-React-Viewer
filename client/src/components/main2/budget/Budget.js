@@ -124,21 +124,21 @@ export class Budget extends Component {
         >
           <Pane
             key="m1"
-            defaultSize={{ width: "25%", height: "90%" }}
+            defaultSize={{ width: "20%", height: "100%" }}
             className="pane"
           >
             <M1 />
           </Pane>
           <Pane
             key="m2"
-            defaultSize={{ width: "40%", height: "90%" }}
+            defaultSize={{ width: "40%", height: "100%" }}
             className="pane"
           >
             <M2 />
           </Pane>
           <Pane
             key="m3"
-            defaultSize={{ width: "30%", height: "90%" }}
+            defaultSize={{ width: "35%", height: "100%" }}
             className="pane"
           >
             <M3 itemSelected={itemSelected} priceSelected={priceSelected} />

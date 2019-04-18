@@ -1,3 +1,7 @@
 .price-selected {
     background-color: rgba(164, 255, 206, 0.4);
 }
+
+.price-list>ul {
+    padding: 0;
+}

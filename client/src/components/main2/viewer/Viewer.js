@@ -11,43 +11,41 @@ import ViewerItem from "./ViewerItem";
 import isEmpty from "../../../validation/is-empty";
 
 class Viewer extends Component {
-  componentDidMount() {
-    const { objectId, filename } = this.props;
-
-    this.props.convertModel(objectId, filename);
-    this.props.getTreeInfo(objectId, filename);
-  }
-
   render() {
-    const { urn, objectInfo, loading } = this.props.forgeDerivative;
+    const { objectInfo, urn } = this.props;
     let viewerContent;
     let treeContent;
 
-    // Sets the viewer
-    if (urn === null || loading) {
-      viewerContent = <Spinner />;
-    } else {
-      viewerContent = <ViewerItem displayViewer={true} id="viewer" urn={urn} />;
-    }
+    // // Sets the viewer
+    // if (urn === null || loading) {
+    //   viewerContent = <Spinner />;
+    // } else {
+    //   viewerContent = ;
+    // }
 
-    // Sets the tree of objects
-    if (objectInfo === null || isEmpty(objectInfo) || loading) {
-      treeContent = null; // Spinner not needed due to the already existing Viewer Spinner
-    } else {
-      const object1 = {
-        // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
-        objects: objectInfo
-      };
-      treeContent = <Tree objectInfo={object1} />;
-    }
-
+    // // Sets the tree of objects
+    // if (objectInfo === null || isEmpty(objectInfo) || loading) {
+    //   treeContent = null; // Spinner not needed due to the already existing Viewer Spinner
+    // } else {
+    //   const object1 = {
+    //     // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
+    //     objects: objectInfo
+    //   };
+    //   treeContent = ;
+    // }
+    const object1 = {
+      // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
+      objects: objectInfo
+    };
     return (
       <div className="Viewer">
         <div className="text-left pl-5">
           <h3> Viewer Component </h3>
-          {treeContent}
+          <Tree objectInfo={object1} />
         </div>
-        <div>{viewerContent}</div>
+        <div>
+          <ViewerItem displayViewer={true} id="viewer" urn={urn} />
+        </div>
       </div>
     );
   }
@@ -56,15 +54,11 @@ class Viewer extends Component {
 Viewer.propTypes = {
   convertModel: PropTypes.func.isRequired,
   getTreeInfo: PropTypes.func.isRequired,
-  objectId: PropTypes.string.isRequired,
-  filename: PropTypes.string.isRequired
+  objectInfo: PropTypes.array.isRequired,
+  urn: PropTypes.string.isRequired
 };
 
-const mapStateToProps = state => ({
-  forgeDerivative: state.forgeDerivative
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   { convertModel, getTreeInfo }
 )(Viewer);

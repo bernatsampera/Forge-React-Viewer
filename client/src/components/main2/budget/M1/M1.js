@@ -4,7 +4,11 @@ import "./m1.css";
 
 export class M1 extends Component {
   render() {
-    return <PriceList />;
+    return (
+      <div className="price-list">
+        <PriceList />
+      </div>
+    );
   }
 }
 

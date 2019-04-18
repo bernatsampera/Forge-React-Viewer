@@ -1,4 +1,4 @@
-import { GET_BUCKETS, POST_LOADING, GET_MODELS } from "../actions/types";
+import { GET_BUCKETS, MANAGEMENT_LOADING, GET_MODELS } from "../actions/types";
 
 const initialState = {
   buckets: [],
@@ -8,7 +8,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case POST_LOADING:
+    case MANAGEMENT_LOADING:
       return {
         ...state,
         loading: true

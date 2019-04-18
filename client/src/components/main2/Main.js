@@ -11,6 +11,8 @@ import Viewer from "./viewer/Viewer";
 import { ViewerItem } from "./viewer/ViewerItem";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import isEmpty from "../../validation/is-empty";
+import CircleSpinner from "../common/CircleSpinner";
 
 // This component changes the display between the viewer/design/budget pages
 export class Main extends Component {
@@ -26,9 +28,14 @@ export class Main extends Component {
 
   render() {
     const { bucketKey, filename, objectId } = this.props.match.params;
+    const { objectInfo, urn, loading } = this.props.forgeDerivative;
+    let mainContent;
 
-    return (
-      <div>
+    if (isEmpty(objectInfo) || loading) {
+      console.log(loading);
+      mainContent = <CircleSpinner />;
+    } else {
+      mainContent = (
         <Tabs>
           <TabList>
             <Tab>Budget</Tab>
@@ -40,14 +47,17 @@ export class Main extends Component {
             <Budget />
           </TabPanel>
           <TabPanel>
-            <Viewer filename={filename} objectId={objectId} />
+            <Viewer objectInfo={objectInfo} urn={urn} />
           </TabPanel>
           <TabPanel>
+            <h1> Design</h1>
             <Design bucketKey={bucketKey} filename={filename} />
           </TabPanel>
         </Tabs>
-      </div>
-    );
+      );
+    }
+
+    return <div>{mainContent}</div>;
   }
 }
 //TODO: Fix the direct visualization of the M2 since if it is entered directly it generates an error when doing a foreach of something empty
@@ -56,7 +66,11 @@ Main.propTypes = {
   getTreeInfo: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  forgeDerivative: state.forgeDerivative
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { getTreeInfo, convertModel }
 )(Main);

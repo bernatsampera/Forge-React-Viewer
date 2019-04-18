@@ -9,7 +9,6 @@ import "react-treelist/build/css/index.css";
 export class ViewGrid extends Component {
   render() {
     const { objectInfo } = this.props.forgeDerivative;
-    console.log(objectInfo);
 
     const { selectBudgetItem } = this.props;
     const HANDLERS = {

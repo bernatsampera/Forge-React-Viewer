@@ -77,8 +77,8 @@ export class M3 extends Component {
 }
 
 M3.propTypes = {
-  itemSelected: PropTypes.string.isRequired,
-  priceSelected: PropTypes.object.isRequired
+  itemSelected: PropTypes.string,
+  priceSelected: PropTypes.number
 };
 
 export default M3;

@@ -1,4 +1,4 @@
-import { GET_BUCKETS, GET_MODELS, POST_LOADING } from "./types";
+import { GET_BUCKETS, GET_MODELS, MANAGEMENT_LOADING } from "./types";
 import axios from "axios";
 
 // Get Buckets
@@ -85,6 +85,6 @@ export const deleteModel = (bucketKey, filename) => dispatch => {
 // Set loading
 export const setPostLoading = () => {
   return {
-    type: POST_LOADING
+    type: MANAGEMENT_LOADING
   };
 };
