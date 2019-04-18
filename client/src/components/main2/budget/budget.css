@@ -9,6 +9,5 @@
 
 .pane {
   border: 1px solid rgba(0, 0, 0, 0.75);
-  overflow-y: overlay;
-  overflow-x: hidden;
+  /* overflow: hidden; */
 }

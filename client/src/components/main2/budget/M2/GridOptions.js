@@ -24,7 +24,7 @@ export const COLUMNS = [
 export const OPTIONS = {
   minimumColWidth: 10,
   expandAll: false,
-  height: 500,
+  height: "100%",
   canSelect: true
 };
 
