@@ -2,10 +2,14 @@ import React from "react";
 
 export default function DisplayElement({ price }) {
   return (
-    <div className={`container mt-4 ${price ? "item-selected" : "bg-light"}`}>
-      <div className={`row pl-5 p-2`}>
+    <div className={`container  ${price ? "item-selected" : "bg-light"}`}>
+      <div className={`row pt-2`}>
         <span className="display-5">
-          {price ? <strong> {price} € </strong> : <div> Select a price </div>}
+          {price ? (
+            <strong>Price -> {price} € </strong>
+          ) : (
+            <div> Select a price </div>
+          )}
         </span>{" "}
       </div>
     </div>

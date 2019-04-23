@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import DisplayElement from "../element/DisplayElement";
 import DisplayPrice from "../element/DisplayPrice";
-import Buttons from "./Buttons";
 import isEmpty from "../../../../validation/is-empty";
 import PropTypes from "prop-types";
+import { RecordList } from "./RecordList";
 
 export class M3 extends Component {
   constructor(props) {
@@ -16,69 +16,55 @@ export class M3 extends Component {
     this.setState({ priceSelected: price });
   }
 
-  addRecord() {
-    const { itemSelected, records } = this.props.budget;
-    const { priceSelected } = this.state;
-
-    if (isEmpty(itemSelected)) {
-      this.props.elementNotSelected();
-      return false;
-    } else if (records.filter(elem => elem.id == itemSelected.id).length > 0) {
-      this.props.elementAlreadyAdded();
-      return false;
-    }
-
-    if (isEmpty(priceSelected)) {
-      this.props.priceNotSelected();
-      return false;
-    }
-
-    let name =
-      itemSelected["category"] ||
-      itemSelected["family"] ||
-      itemSelected["type"] ||
-      itemSelected["element"] ||
-      "nomatch";
-
-    const recordName = {
-      id: itemSelected.id,
-      name: name
-    };
-
-    const record = {
-      id: `r${itemSelected.id}`,
-      record: `Elem: ${name}, price: ${priceSelected} €`,
-      parentId: itemSelected.id
-    };
-
-    this.props.addRecord(recordName);
-    this.props.addRecord(record);
-    this.props.recordCreated();
-
-    this.setState({
-      priceSelected: null
-    });
-    this.props.deselectBudgetItem();
-  }
-
   render() {
-    const { itemSelected, priceSelected } = this.props;
+    const {
+      itemSelected,
+      priceSelected,
+      records,
+      addRecord,
+      deleteAllRecords
+    } = this.props;
+    console.log(records);
     return (
-      <div>
-        <div className="col-sm-6 mt-5">
-          {" "}
-          <DisplayElement elem={itemSelected} />
-          <DisplayPrice price={priceSelected} />
+      <div className="m3-grid">
+        <div className="row budget">
+          <div className="col-sm-6">
+            <DisplayElement elem={itemSelected} />
+          </div>
+          <div className="col-sm-6">
+            <DisplayPrice price={priceSelected} />
+          </div>
+          <div className="col-sm-12">
+            <button
+              className="btn btn-sm btn-success col-sm-4 float-left"
+              onClick={addRecord}
+            >
+              {" "}
+              Add Record{" "}
+            </button>
+            <button
+              className="btn btn-sm btn-danger col-sm-4  float-right "
+              onClick={deleteAllRecords}
+            >
+              {" "}
+              Delete All Records{" "}
+            </button>
+          </div>
         </div>
-        <Buttons />
+        <div className="" style={{ overflow: "overlay" }}>
+          <RecordList records={records} />
+        </div>
       </div>
     );
   }
 }
 
 M3.propTypes = {
-  itemSelected: PropTypes.string,
-  priceSelected: PropTypes.number
+  itemSelected: PropTypes.object,
+  priceSelected: PropTypes.number,
+  addRecord: PropTypes.func.isRequired,
+  deleteAllRecords: PropTypes.func.isRequired,
+  records: PropTypes.array.isRequired
 };
 
 export default M3;

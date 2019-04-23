@@ -32,7 +32,6 @@ export class Main extends Component {
     let mainContent;
 
     if (isEmpty(objectInfo) || loading) {
-      console.log(loading);
       mainContent = <CircleSpinner />;
     } else {
       mainContent = (
@@ -50,7 +49,6 @@ export class Main extends Component {
             <Viewer objectInfo={objectInfo} urn={urn} />
           </TabPanel>
           <TabPanel>
-            <h1> Design</h1>
             <Design bucketKey={bucketKey} filename={filename} />
           </TabPanel>
         </Tabs>

@@ -11,3 +11,16 @@
   border: 1px solid rgba(0, 0, 0, 0.75);
   /* overflow: hidden; */
 }
+
+.m2-pane {
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  position: relative;
+}
+
+.m2-grid,
+.m3-grid {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: scroll;
+}

@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { deleteRecord } from "../../../../actions/budgetActions";
 import TreeList from "react-treelist";
 import { COLUMNS, OPTIONS } from "./RecordGridOptions";
 
 export class RecordList extends Component {
   render() {
-    const { records } = this.props.budget;
+    const { records } = this.props;
+
     const HANDLERS = {};
     return (
       <div className="mt-3">
         <h3> Record List </h3>
         <TreeList
-          data={records}
+          data={records} // records
           columns={COLUMNS}
           options={OPTIONS}
           handlers={HANDLERS}
@@ -27,15 +26,7 @@ export class RecordList extends Component {
 }
 
 RecordList.propTypes = {
-  deleteRecord: PropTypes.func.isRequired,
-  budget: PropTypes.object.isRequired
+  records: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => ({
-  budget: state.budget
-});
-
-export default connect(
-  mapStateToProps,
-  { deleteRecord }
-)(RecordList);
+export default RecordList;

@@ -24,10 +24,6 @@ export class Budget extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      priceSelected: null
-    };
-
     this.addRecord = this.addRecord.bind(this);
     this.deleteAllRecords = this.deleteAllRecords.bind(this);
   }
@@ -38,8 +34,7 @@ export class Budget extends Component {
   }
 
   addRecord() {
-    const { itemSelected, records } = this.props.budget;
-    const { priceSelected } = this.state;
+    const { itemSelected, records, priceSelected } = this.props.budget;
 
     if (isEmpty(itemSelected)) {
       this.props.elementNotSelected();
@@ -75,43 +70,10 @@ export class Budget extends Component {
     this.props.addRecord(recordName);
     this.props.addRecord(record);
     this.props.recordCreated();
-
-    this.setState({
-      priceSelected: null
-    });
-    this.props.deselectBudgetItem();
   }
 
   render() {
-    const {} = this.props;
-    const { itemSelected, priceSelected } = this.props.budget;
-    // let budgetContent;
-    // budgetContent = (
-    //   <div className="row budget">
-    //     <h3 className="col-sm-12"> Budget Creator </h3>
-    //     <div className="col-sm-6 mt-5">
-    //       {" "}
-    //       {/* <DisplayElement elem={itemSelected} />
-    //       <DisplayPrice price={priceSelected} /> */}
-    //     </div>
-    //     <div className="col-sm-12">
-    //       <button
-    //         className="btn btn-sm btn-success col-sm-4 float-left m-2"
-    //         onClick={this.addRecord}
-    //       >
-    //         {" "}
-    //         Add Record{" "}
-    //       </button>
-    //       <button
-    //         className="btn btn-sm btn-danger col-sm-4  float-right m-2"
-    //         onClick={this.deleteAllRecords}
-    //       >
-    //         {" "}
-    //         Delete All Records{" "}
-    //       </button>
-    //     </div>
-    //   </div>
-    // );
+    const { itemSelected, priceSelected, records } = this.props.budget;
 
     return (
       <div className="budgetContainer">
@@ -132,7 +94,7 @@ export class Budget extends Component {
           <Pane
             key="m2"
             defaultSize={{ width: "40%", height: "100%" }}
-            className="pane"
+            className="m2-pane"
           >
             <M2 />
           </Pane>
@@ -141,7 +103,13 @@ export class Budget extends Component {
             defaultSize={{ width: "35%", height: "100%" }}
             className="pane"
           >
-            <M3 itemSelected={itemSelected} priceSelected={priceSelected} />
+            <M3
+              itemSelected={itemSelected}
+              priceSelected={priceSelected}
+              addRecord={this.addRecord}
+              deleteAllRecords={this.deleteAllRecords}
+              records={records}
+            />
           </Pane>
         </SortablePane>
       </div>

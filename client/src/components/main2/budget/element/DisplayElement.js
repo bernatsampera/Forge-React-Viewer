@@ -17,8 +17,7 @@ export default function DisplayElement({ elem }) {
           <strong> Element </strong> ->{" "}
         </span>{" "}
         &nbsp;&nbsp;
-        <strong> Name: &nbsp;</strong> {name} &nbsp;&nbsp;{" "}
-        <strong>Id:&nbsp;</strong>
+        {name} &nbsp;&nbsp; <strong>Id:&nbsp;</strong>
         {elem.id} &nbsp;&nbsp;
       </div>
     );
@@ -28,7 +27,7 @@ export default function DisplayElement({ elem }) {
 
   return (
     <div className={`container ${elem ? "text-green" : "bg-light"}`}>
-      <div className={`row pl-5 p-2`}>{content}</div>
+      <div className={`row pt-2 `}>{content}</div>
     </div>
   );
 }

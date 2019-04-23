@@ -39,7 +39,9 @@ export default function(state = initialState, action) {
     case ADD_RECORD:
       return {
         ...state,
-        records: [...state.records, action.payload]
+        records: [...state.records, action.payload],
+        priceSelected: null,
+        itemSelected: null
       };
     case DELETE_RECORD:
       return {

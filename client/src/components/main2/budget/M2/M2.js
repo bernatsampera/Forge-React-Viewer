@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export class M2 extends Component {
   render() {
     return (
-      <div className="m2-grid" style={{ overflow: "overlay" }}>
+      <div className="m2-grid">
         <ViewGrid />
       </div>
     );
