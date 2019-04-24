@@ -19,6 +19,7 @@ router.post("/convert", function(req, res) {
   console.log("urn: " + urn);
 
   const access_token = req.body.access_token;
+  console.log(access_token);
 
   var format_type = "svf";
   var format_views = ["2d", "3d"];
@@ -57,11 +58,11 @@ router.post("/convert", function(req, res) {
     });
 });
 
-router.post("/treeInfo", function(req, res) {
-  var urn = req.body.urn;
+router.get("/treeInfo", function(req, res) {
+  var urn = req.query.urn;
   var urn = urn.toBase64();
 
-  const access_token = req.body.access_token;
+  const access_token = req.query.access_token;
 
   Axios({
     method: "GET",
@@ -89,12 +90,12 @@ router.post("/treeInfo", function(req, res) {
     });
 });
 
-router.post("/objectInfo", function(req, res) {
-  var urn = req.body.urn;
+router.get("/objectInfo", function(req, res) {
+  var urn = req.query.urn;
   var urn = urn.toBase64();
-  var guid = req.body.guid;
+  var guid = req.query.guid;
 
-  const access_token = req.body.access_token;
+  const access_token = req.query.access_token;
 
   Axios({
     method: "GET",

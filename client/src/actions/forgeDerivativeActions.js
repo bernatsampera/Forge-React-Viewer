@@ -6,7 +6,7 @@ export const convertModel = (objectId, filename) => dispatch => {
   dispatch(setPostLoading());
   const urn = `${objectId}/${filename}`;
   const body = {
-    access_token: localStorage.getItem("access_token"),
+    access_token: localStorage.access_token,
     urn
   };
   axios
@@ -21,12 +21,10 @@ export const convertModel = (objectId, filename) => dispatch => {
 export const getTreeInfo = (objectId, filename) => dispatch => {
   dispatch(setPostLoading());
   const urn = `${objectId}/${filename}`;
-  const body = {
-    access_token: localStorage.access_token,
-    urn
-  };
   axios
-    .post("/api/modelderivative/treeInfo", body)
+    .get("/api/modelderivative/treeInfo", {
+      params: { access_token: localStorage.access_token, urn }
+    })
     .then(res => {
       const object3d = res.data.data[0]; // Gets the first object from metadata array, the one which is in 3D
       dispatch(getObjectInfo(urn, object3d.guid));
@@ -36,13 +34,10 @@ export const getTreeInfo = (objectId, filename) => dispatch => {
 
 // Get Object info, corresponding to the first object retrieved by getTreeinfo
 export const getObjectInfo = (urn, guid) => dispatch => {
-  const body = {
-    access_token: localStorage.access_token,
-    urn,
-    guid: guid
-  };
   axios
-    .post("/api/modelderivative/objectInfo", body)
+    .get("/api/modelderivative/objectInfo", {
+      params: { access_token: localStorage.access_token, urn, guid: guid }
+    })
     .then(res =>
       dispatch({ type: GET_OBJECT_INFO, payload: res.data.data[0].objects })
     )
