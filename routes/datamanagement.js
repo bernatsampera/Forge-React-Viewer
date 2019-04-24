@@ -5,9 +5,9 @@ const forge_client = require("../config/forge");
 var store = require("store");
 var router = express.Router();
 
-router.post("/buckets", (req, res) => {
-  const access_token = req.body.access_token;
-  console.log(req.body);
+router.get("/buckets", (req, res) => {
+  const access_token = req.query.access_token;
+  //console.log(access_token);
   Axios({
     method: "GET",
     url: "https://developer.api.autodesk.com/oss/v2/buckets",
@@ -28,7 +28,7 @@ router.post("/buckets", (req, res) => {
 });
 
 router.post("/create", function(req, res, next) {
-  const access_token = req.body.access_token;
+  const access_token = req.query.access_token;
   const bucketKey = req.body.bucketKey;
   const policyKey = req.body.policyKey;
 
@@ -63,7 +63,7 @@ router.post("/create", function(req, res, next) {
     });
 });
 
-router.post("/detail", function(req, res) {
+router.get("/detail", function(req, res) {
   const access_token = req.body.access_token;
   const bucketKey = req.body.bucketKey;
   console.log(this.bucketKey);
@@ -100,7 +100,7 @@ var multer = require("multer"); // To handle file upload
 var upload = multer({ dest: "tmp/" }); // Save file into local /tmp folder
 
 // Route /api/forge/datamanagement/bucket/upload
-router.post("/upload", upload.single("fileToUpload"), function(req, res) {
+router.put("/upload", upload.single("fileToUpload"), function(req, res) {
   const bucketKey = req.body.bucketKey;
   const access_token = req.body.access_token;
   var fs = require("fs"); // Node.js File system for reading files
@@ -134,10 +134,10 @@ router.post("/upload", upload.single("fileToUpload"), function(req, res) {
 
 // Route /model/delete
 //developer.api.autodesk.com/oss/v2/buckets/:bucketKey/objects/:objectName
-router.post("/model/delete", function(req, res) {
-  const bucketKey = req.body.bucketKey;
-  const access_token = req.body.access_token;
-  const filename = req.body.filename;
+router.delete("/model/delete", function(req, res) {
+  const bucketKey = req.query.bucketKey;
+  const access_token = req.query.access_token;
+  const filename = req.query.filename;
 
   Axios({
     method: "DELETE",
@@ -151,6 +151,7 @@ router.post("/model/delete", function(req, res) {
     }
   })
     .then(function(response) {
+      console.log(response + "test delete");
       res.json({ success: true });
     })
     .catch(function(error) {
@@ -160,9 +161,9 @@ router.post("/model/delete", function(req, res) {
     });
 });
 
-router.post("/models", function(req, res) {
-  const access_token = req.body.access_token;
-  const bucketKey = req.body.bucketKey;
+router.get("/models", function(req, res) {
+  const access_token = req.query.access_token;
+  const bucketKey = req.query.bucketKey;
 
   console.log(this.bucketKey);
   Axios({

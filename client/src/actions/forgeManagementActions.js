@@ -4,11 +4,10 @@ import axios from "axios";
 // Get Buckets
 export const getBuckets = () => dispatch => {
   dispatch(setPostLoading());
-  const body = {
-    access_token: localStorage.getItem("access_token")
-  };
   axios
-    .post("/api/datamanagement/buckets", body)
+    .get("/api/datamanagement/buckets", {
+      params: { access_token: localStorage.access_token }
+    })
     .then(res => {
       if (res.data) {
         dispatch({
@@ -21,15 +20,17 @@ export const getBuckets = () => dispatch => {
 };
 
 // Create Bucket
+//TODO provar si funciona
 export const createBucket = (bucketKey, policyKey, history) => dispatch => {
   const body = {
-    access_token: localStorage.getItem("access_token"),
     bucketKey,
     policyKey
   };
 
   axios
-    .post("/api/datamanagement/create", body)
+    .post("/api/datamanagement/create", body, {
+      params: { access_token: localStorage.access_token }
+    })
     .then(res => {
       dispatch(getBuckets());
       history.push("/");
@@ -40,12 +41,10 @@ export const createBucket = (bucketKey, policyKey, history) => dispatch => {
 // Get Models
 export const getModels = bucketKey => dispatch => {
   dispatch(setPostLoading());
-  const body = {
-    access_token: localStorage.getItem("access_token"),
-    bucketKey
-  };
   axios
-    .post("/api/datamanagement/models", body)
+    .get("/api/datamanagement/models", {
+      params: { access_token: localStorage.access_token, bucketKey }
+    })
     .then(res =>
       dispatch({
         type: GET_MODELS,
@@ -59,11 +58,11 @@ export const getModels = bucketKey => dispatch => {
 export const uploadModel = (file, bucketKey) => dispatch => {
   const data = new FormData();
   data.append("fileToUpload", file, file.name);
-  data.append("access_token", localStorage.getItem("access_token"));
+  data.append("access_token", localStorage.access_token);
   data.append("bucketKey", bucketKey);
 
   axios
-    .post("/api/datamanagement/upload", data)
+    .put("/api/datamanagement/upload", data)
     .then(res => dispatch(getModels(bucketKey)))
     .catch(err => console.log(err));
 };
@@ -71,13 +70,14 @@ export const uploadModel = (file, bucketKey) => dispatch => {
 // Delete a Model
 export const deleteModel = (bucketKey, filename) => dispatch => {
   dispatch(setPostLoading());
-  const body = {
-    access_token: localStorage.getItem("access_token"),
-    bucketKey: bucketKey,
-    filename: filename
-  };
   axios
-    .post("/api/datamanagement/model/delete", body)
+    .delete("/api/datamanagement/model/delete", {
+      params: {
+        access_token: localStorage.access_token,
+        bucketKey: bucketKey,
+        filename: filename
+      }
+    })
     .then(res => dispatch(getModels(bucketKey)))
     .catch(err => console.log(err));
 };
