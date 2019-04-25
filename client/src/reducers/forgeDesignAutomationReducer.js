@@ -12,7 +12,6 @@ export default function(state = initialState, action) {
         ...state,
         activities: action.payload
       };
-      break;
     case GET_MODEL_INFO:
       return {
         ...state,
@@ -20,6 +19,5 @@ export default function(state = initialState, action) {
       };
     default:
       return state;
-      break;
   }
 }

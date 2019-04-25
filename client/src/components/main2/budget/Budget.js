@@ -12,7 +12,6 @@ import {
 } from "../../../actions/showErrorsActions";
 import { recordCreated } from "../../../actions/showMessagesActions";
 import PropTypes from "prop-types";
-import RecordList from "./M3/RecordList";
 import isEmpty from "../../../validation/is-empty";
 import M3 from "./M3/M3";
 import M2 from "./M2/M2";

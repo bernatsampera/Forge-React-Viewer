@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import Budget from "./budget/Budget";
 import Design from "./design/Design";
 import Viewer from "./viewer/Viewer";
-import { ViewerItem } from "./viewer/ViewerItem";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import isEmpty from "../../validation/is-empty";
@@ -27,7 +26,7 @@ export class Main extends Component {
   }
 
   render() {
-    const { bucketKey, filename, objectId } = this.props.match.params;
+    const { bucketKey, filename } = this.props.match.params;
     const { objectInfo, urn, loading } = this.props.forgeDerivative;
     let mainContent;
 
