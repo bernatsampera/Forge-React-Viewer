@@ -189,14 +189,9 @@ router.get("/models", function(req, res) {
 
 //use in model derivative for extraction info of txt
 router.get("/modelinfo", (req, res) => {
-  //token for testing, if error renew de token
-  const access_token =
-    "eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJwWWNqazZOd3BBemJ3Qjd0RDV2NGcyclg3WURYMlFRUiIsImV4cCI6MTU1NjE4NjE2Nywic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpyZWFkIiwiY29kZTphbGwiLCJhY2NvdW50OnJlYWQiLCJhY2NvdW50OndyaXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IndCS1V4bkRDOFdXZkdJbHhCaFg1YW9QRE5aT3g2WEp2d1lXQnZsSHI0R1VpV0llMEF6c21IT2s2WDMycTd1QnMifQ.IGT-Y2bWuhaCjUY0qgEBLlP5wqJA4ay-YIufQVPMfkM";
-  //const access_token = req.query.access_token;
-  //const bucketKey = req.query.bucketKey;
-  //const objectKey = req.query.objectKey;
-  const bucketKey = "react_viewer_transient";
-  const objectKey = "1556184240.52rst_basic_sample_project.txt";
+  const access_token = req.query.access_token;
+  const bucketKey = req.query.bucketKey;
+  const objectKey = req.query.objectKey;
 
   Axios({
     method: "GET",
