@@ -85,23 +85,4 @@ router.post("/workitems", (req, res) => {
     .catch(err => console.log(err));
 });
 
-router.post("/modelinfo", (req, res) => {
-  const access_token = req.query.access_token;
-
-  const { bucketKey, objectKey } = req.body;
-
-  Axios({
-    method: "GET",
-    url: `https://developer.api.autodesk.com/oss/v2/buckets/${bucketKey}/objects/${objectKey}`,
-    headers: {
-      Authorization: `Bearer ${access_token}`
-    }
-  })
-    .then(response => {
-      console.log(response.data);
-      res.json(response.data);
-    })
-    .catch(err => console.log(err));
-});
-
 module.exports = router;
