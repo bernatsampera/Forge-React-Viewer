@@ -16,23 +16,6 @@ class Viewer extends Component {
     let viewerContent;
     let treeContent;
 
-    // // Sets the viewer
-    // if (urn === null || loading) {
-    //   viewerContent = <Spinner />;
-    // } else {
-    //   viewerContent = ;
-    // }
-
-    // // Sets the tree of objects
-    // if (objectInfo === null || isEmpty(objectInfo) || loading) {
-    //   treeContent = null; // Spinner not needed due to the already existing Viewer Spinner
-    // } else {
-    //   const object1 = {
-    //     // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
-    //     objects: objectInfo
-    //   };
-    //   treeContent = ;
-    // }
     const object1 = {
       // Converts array of objects to objects with this array to allow recursive iteration in Tree.js
       objects: objectInfo

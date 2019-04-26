@@ -18,27 +18,13 @@ export class ViewerItem extends Component {
   }
 
   componentDidMount() {
+    this.props.getViewerAccess();
     // Sets the documentId to the state and the localStorage if it's not present
     if (!this.state.documentId) {
       this.setState({ documentId: `urn:${this.props.urn}` });
       localStorage.setItem("documentId", `urn:${this.props.urn}`);
     }
-
     // Initializes Viewer App
-    this.setState(
-      {
-        viewerApp: new window.Autodesk.Viewing.ViewingApplication("MyViewerDiv")
-      },
-      () =>
-        window.Autodesk.Viewing.Initializer(
-          {
-            env: "AutodeskProduction",
-            api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
-            getAccessToken: this.getForgeToken
-          },
-          this.callback
-        )
-    );
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,8 +40,22 @@ export class ViewerItem extends Component {
       }
     }
     if (nextProps.forgeViewer.viewer_token) {
-      const { viewer_token } = nextProps.forgeViewer;
-      this.callback(viewer_token.access_token, viewer_token.expires_in);
+      this.setState(
+        {
+          viewerApp: new window.Autodesk.Viewing.ViewingApplication(
+            "MyViewerDiv"
+          )
+        },
+        () =>
+          window.Autodesk.Viewing.Initializer(
+            {
+              env: "AutodeskProduction",
+              api: "derivativeV2", // TODO: for models uploaded to EMEA change this option to 'derivativeV2_EU'
+              getAccessToken: this.getForgeToken
+            },
+            this.callback
+          )
+      );
     }
   }
 

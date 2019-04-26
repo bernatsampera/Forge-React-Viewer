@@ -24,7 +24,6 @@ export class M3 extends Component {
       addRecord,
       deleteAllRecords
     } = this.props;
-    console.log(records);
     return (
       <div className="m3-grid">
         <div className="row budget">
