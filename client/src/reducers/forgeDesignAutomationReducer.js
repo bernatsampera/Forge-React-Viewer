@@ -1,8 +1,14 @@
-import { GET_ACTIVITIES, GET_MODEL_INFO } from "../actions/types";
+import {
+  GET_ACTIVITIES,
+  GET_MODEL_INFO,
+  ACTIVITY_FINISHED,
+  ACTIVITY_STARTED
+} from "../actions/types";
 
 const initialState = {
   activities: [],
-  modelData: {} // TODO: Move modelData to another place
+  modelData: {},
+  inRequest: false
 };
 
 export default function(state = initialState, action) {
@@ -16,6 +22,18 @@ export default function(state = initialState, action) {
       return {
         ...state,
         modelData: action.payload
+      };
+    case ACTIVITY_STARTED:
+      return {
+        ...state,
+        inRequest: true,
+        loading: true
+      };
+    case ACTIVITY_FINISHED:
+      return {
+        ...state,
+        inRequest: false,
+        loading: false
       };
     default:
       return state;

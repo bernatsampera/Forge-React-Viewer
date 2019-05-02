@@ -165,7 +165,7 @@ router.get("/models", function(req, res) {
   const access_token = req.query.access_token;
   const bucketKey = req.query.bucketKey;
 
-  console.log(this.bucketKey);
+  console.log(bucketKey);
   Axios({
     method: "GET",
     url:

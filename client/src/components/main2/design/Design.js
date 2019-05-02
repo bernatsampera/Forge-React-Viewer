@@ -17,6 +17,14 @@ export class Design extends Component {
     this.props.getModels(bucketKey);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { bucketKey } = this.props;
+    const { inRequest } = nextProps.forgeDesignAutomation;
+    if (this.props.forgeDesignAutomation.inRequest != inRequest && !inRequest) {
+      this.props.getModels(bucketKey);
+    }
+  }
+
   runWorkItem(activity) {
     const { bucketKey, filename } = this.props;
 
@@ -32,9 +40,11 @@ export class Design extends Component {
   render() {
     const { activities, modelData } = this.props.forgeDesignAutomation;
     const { models, loading } = this.props.forgeManagement;
+    const loading2 = this.props.forgeDesignAutomation.loading;
+
     let modelsContent;
 
-    if (models === null || loading) {
+    if (loading2 || loading || models === null) {
       modelsContent = <Spinner />;
     } else {
       modelsContent = (

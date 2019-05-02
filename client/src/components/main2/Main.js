@@ -25,6 +25,10 @@ export class Main extends Component {
     this.props.getTreeInfo(objectId, filename);
   }
 
+  componentWillUnmount() {
+    localStorage.removeItem("documentId");
+  }
+
   render() {
     const { bucketKey, filename } = this.props.match.params;
     const { objectInfo, urn, loading } = this.props.forgeDerivative;

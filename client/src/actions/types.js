@@ -8,6 +8,8 @@ export const DESELECT_PRICE = "DESELECT_PRICE";
 export const ADD_RECORD = "ADD_RECORD";
 export const DELETE_RECORD = "DELETE_RECORD";
 export const DELETE_ALL_RECORD = "DELETE_ALL_RECORD";
+export const ACTIVITY_FINISHED = "ACTIVITY_FINISHED";
+export const ACTIVITY_STARTED = "ACTIVITY_STARTED";
 
 // Forge Requests
 export const SET_FORGE_ACCESS = "SET_FORGE_ACCESS";

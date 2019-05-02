@@ -85,4 +85,20 @@ router.post("/workitems", (req, res) => {
     .catch(err => console.log(err));
 });
 
+router.get("/workitem", (req, res) => {
+  const access_token = req.query.access_token;
+  const id = req.query.id;
+  Axios({
+    method: "GET",
+    url: `https://developer.api.autodesk.com/da/us-east/v3/workitems/${id}`,
+    headers: {
+      Authorization: "Bearer " + access_token
+    }
+  })
+    .then(response => {
+      res.json(response.data);
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;

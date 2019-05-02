@@ -1,4 +1,9 @@
-import { GET_BUCKETS, MANAGEMENT_LOADING, GET_MODELS } from "../actions/types";
+import {
+  GET_BUCKETS,
+  MANAGEMENT_LOADING,
+  GET_MODELS,
+  GET_MODEL_INFO
+} from "../actions/types";
 
 const initialState = {
   buckets: [],
@@ -25,6 +30,7 @@ export default function(state = initialState, action) {
         models: action.payload,
         loading: false
       };
+
     default:
       return state;
   }

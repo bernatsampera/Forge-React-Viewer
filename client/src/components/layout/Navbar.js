@@ -22,6 +22,11 @@ class Navbar extends Component {
             Buckets
           </Link>
         </li>
+        <li className="nav item">
+          <Link className="nav-link" to="/bucket/create">
+            Create
+          </Link>
+        </li>
         <li className="nav-item">
           <button
             className="nav-link btn btn-dark"
