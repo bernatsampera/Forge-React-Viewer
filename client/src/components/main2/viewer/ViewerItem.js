@@ -23,7 +23,9 @@ export class ViewerItem extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Select item selected in tree component
-    if (nextProps.forgeViewer.itemSelected) {
+    if (
+      this.props.forgeViewer.itemSelected != nextProps.forgeViewer.itemSelected
+    ) {
       const { itemSelected } = nextProps.forgeViewer;
       const { viewer } = this.state;
       if (viewer) {
@@ -33,7 +35,9 @@ export class ViewerItem extends Component {
         );
       }
     }
-    if (nextProps.forgeViewer.viewer_token) {
+    if (
+      this.props.forgeViewer.viewer_token != nextProps.forgeViewer.viewer_token
+    ) {
       this.setState(
         {
           viewerApp: new window.Autodesk.Viewing.ViewingApplication(
@@ -137,13 +141,13 @@ export class ViewerItem extends Component {
   }
 
   render() {
-    const { itemSelected } = this.state;
+    // const { itemSelected } = this.state;
     const { displayViewer } = this.props;
 
     return (
       <div style={!displayViewer ? { visibility: "hidden" } : {}}>
         <div style={canvasStyle}>
-          <span style={textStyle}> Item: {itemSelected}</span>
+          {/* <span style={textStyle}> Item: {itemSelected}</span> */}
           <div id="MyViewerDiv" />
         </div>
       </div>
