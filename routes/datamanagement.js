@@ -7,7 +7,6 @@ var router = express.Router();
 
 router.get("/buckets", (req, res) => {
   const access_token = req.query.access_token;
-  //console.log(access_token);
   Axios({
     method: "GET",
     url: "https://developer.api.autodesk.com/oss/v2/buckets",
@@ -22,8 +21,7 @@ router.get("/buckets", (req, res) => {
     })
     .catch(function(error) {
       // Failed
-      //console.log(error);
-      res.json({ success: false, message: "Failed to get buckets" });
+      //   res.json({ success: false, message: "Failed to get buckets" });
     });
 });
 
@@ -31,9 +29,6 @@ router.post("/create", function(req, res, next) {
   const access_token = req.query.access_token;
   const bucketKey = req.body.bucketKey;
   const policyKey = req.body.policyKey;
-
-  console.log(bucketKey);
-  console.log(policyKey);
 
   Axios({
     method: "POST",
@@ -66,7 +61,6 @@ router.post("/create", function(req, res, next) {
 router.get("/detail", function(req, res) {
   const access_token = req.body.access_token;
   const bucketKey = req.body.bucketKey;
-  console.log(this.bucketKey);
   Axios({
     method: "GET",
     url:
@@ -79,7 +73,6 @@ router.get("/detail", function(req, res) {
   })
     .then(function(response) {
       // Success
-      console.log(response);
       res.json({ success: true, data: response.data });
     })
     .catch(function(error) {
@@ -121,7 +114,6 @@ router.put("/upload", upload.single("fileToUpload"), function(req, res) {
     })
       .then(function(response) {
         // Success
-        console.log(response.data);
         var urn = response.data.objectId.toBase64();
         res.json({ success: true, urn: urn });
       })
@@ -151,7 +143,6 @@ router.delete("/model/delete", function(req, res) {
     }
   })
     .then(function(response) {
-      console.log(response + "test delete");
       res.json({ success: true });
     })
     .catch(function(error) {
@@ -165,7 +156,6 @@ router.get("/models", function(req, res) {
   const access_token = req.query.access_token;
   const bucketKey = req.query.bucketKey;
 
-  console.log(bucketKey);
   Axios({
     method: "GET",
     url:
@@ -178,7 +168,6 @@ router.get("/models", function(req, res) {
   })
     .then(function(response) {
       // Success
-      console.log(response.data);
       res.json({ success: true, data: response.data });
     })
     .catch(function(error) {
@@ -201,7 +190,6 @@ router.get("/modelinfo", (req, res) => {
     }
   })
     .then(response => {
-      console.log(response.data);
       res.json(response.data);
     })
     .catch(err => console.log(err));

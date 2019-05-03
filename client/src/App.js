@@ -47,32 +47,32 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={<Spinner />} persistor={persistor}>
-          <AlertProvider template={AlertTemplate} {...alertOptions}>
-            <Router>
-              <Fragment>
-                <Navbar />
-                <Alerts />
-                <div className="App">
-                  <Route exact path="/" component={Dashboard} />
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/buckets" component={Buckets} />
-                  <Route exact path="/bucket/create" component={CreateBucket} />
-                  <Route
-                    exact
-                    path="/bucket/detail/:bucketKey"
-                    component={Models}
-                  />
-                  <Route
-                    exact
-                    path="/bucket/detail/:bucketKey/:objectId/:filename"
-                    component={Main}
-                  />
-                </div>
-              </Fragment>
-            </Router>
-          </AlertProvider>
-        </PersistGate>
+        {/* <PersistGate loading={<Spinner />} persistor={persistor}> */}
+        <AlertProvider template={AlertTemplate} {...alertOptions}>
+          <Router>
+            <Fragment>
+              <Navbar />
+              <Alerts />
+              <div className="App">
+                <Route exact path="/" component={Dashboard} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/buckets" component={Buckets} />
+                <Route exact path="/bucket/create" component={CreateBucket} />
+                <Route
+                  exact
+                  path="/bucket/detail/:bucketKey"
+                  component={Models}
+                />
+                <Route
+                  exact
+                  path="/bucket/detail/:bucketKey/:objectId/:filename"
+                  component={Main}
+                />
+              </div>
+            </Fragment>
+          </Router>
+        </AlertProvider>
+        {/* </PersistGate> */}
       </Provider>
     );
   }

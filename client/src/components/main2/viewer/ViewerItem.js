@@ -12,18 +12,12 @@ export class ViewerItem extends Component {
     this.state = {
       viewerApp: null,
       viewer: null,
-      documentId: localStorage.documentId || null,
       itemSelected: null
     };
   }
 
   componentDidMount() {
     this.props.getViewerAccess();
-    // Sets the documentId to the state and the localStorage if it's not present
-    if (!this.state.documentId) {
-      this.setState({ documentId: `urn:${this.props.urn}` });
-      localStorage.setItem("documentId", `urn:${this.props.urn}`);
-    }
     // Initializes Viewer App
   }
 
@@ -67,7 +61,8 @@ export class ViewerItem extends Component {
   }
 
   callback = () => {
-    const { viewerApp, documentId } = this.state;
+    const { viewerApp } = this.state;
+    const documentId = `urn:${this.props.urn}`;
     if (viewerApp) {
       viewerApp.registerViewer(
         viewerApp.k3D,

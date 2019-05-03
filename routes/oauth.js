@@ -4,6 +4,7 @@ const querystring = require("querystring");
 const keys = require("../config/forge");
 
 var router = express.Router();
+var client_id, client_secret;
 
 router.post("/", (req, res) => {
   // If user inputs some data use that data, if not use default variables
@@ -39,11 +40,10 @@ router.post("/", (req, res) => {
 });
 
 router.get("/public", function(req, res) {
-  client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
-  client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
-
-  console.log(`client_id: ${client_id}`);
-  console.log(`client_secret: ${client_secret}`);
+  // client_id = req.body.client_id || keys.FORGE_CLIENT_ID;
+  // client_secret = req.body.client_secret || keys.FORGE_CLIENT_SECRET;
+  client_id = client_id || keys.FORGE_CLIENT_ID;
+  client_secret = client_secret || keys.FORGE_CLIENT_SECRET;
 
   Axios({
     method: "POST",
@@ -60,7 +60,6 @@ router.get("/public", function(req, res) {
   })
     .then(function(response) {
       // Success
-      // console.log(response);
       res.json({
         access_token: response.data.access_token,
         expires_in: response.data.expires_in

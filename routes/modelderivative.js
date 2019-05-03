@@ -16,10 +16,7 @@ router.post("/convert", function(req, res) {
   var urn = req.body.urn;
   var urn = urn.toBase64();
 
-  console.log("urn: " + urn);
-
   const access_token = req.body.access_token;
-  console.log(access_token);
 
   var format_type = "svf";
   var format_views = ["2d", "3d"];
@@ -47,7 +44,6 @@ router.post("/convert", function(req, res) {
   })
     .then(function(response) {
       // Success
-      //console.log(response);
       res.json({ succes: true, data: response.data });
       // res.redirect('/viewer.html?urn=' + urn);
     })
@@ -97,6 +93,9 @@ router.get("/objectInfo", function(req, res) {
 
   const access_token = req.query.access_token;
 
+  console.log(`urn: ${urn}`);
+  console.log(`guid: ${guid}`);
+
   Axios({
     method: "GET",
     url:
@@ -109,17 +108,15 @@ router.get("/objectInfo", function(req, res) {
       Authorization: "Bearer " + access_token
     }
   })
+    //validate response is not 202
     .then(function(response) {
       // Success
-      //console.log(response);
-
-      const data = response.data.data.objects;
-      const dataToConvert = JSON.stringify(data);
-      fs.writeFile("./objectInfo.json", dataToConvert, "utf8", () => {
-        console.log("Data converted to objectInfo");
+      console.log(response);
+      res.json({
+        success: true,
+        data: response.data.data.objects,
+        status: response.data.status
       });
-
-      res.json({ succes: true, data: response.data.data.objects });
       // res.redirect('/viewer.html?urn=' + urn);
     })
     .catch(function(error) {
