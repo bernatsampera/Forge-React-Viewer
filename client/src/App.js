@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { removeAccess, setForgeAccess } from "./actions/forgeAuthActions";
 import { Provider } from "react-redux";
+// eslint-disable-next-line no-unused-vars
 import { persistor, store } from "./store";
+// eslint-disable-next-line no-unused-vars
 import { PersistGate } from "redux-persist/lib/integration/react";
 
 import { Provider as AlertProvider } from "react-alert";
@@ -15,6 +17,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Buckets from "./components/buckets/Buckets";
 import Models from "./components/models/Models";
 import CreateBucket from "./components/buckets/CreateBucket";
+// eslint-disable-next-line no-unused-vars
 import Spinner from "./components/common/Spinner";
 import Login from "./components/auth/Login";
 import Main from "./components/main2/Main"; // main/main2 to change between versions

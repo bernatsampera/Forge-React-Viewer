@@ -20,7 +20,7 @@ export class Design extends Component {
   componentWillReceiveProps(nextProps) {
     const { bucketKey } = this.props;
     const { inRequest } = nextProps.forgeDesignAutomation;
-    if (this.props.forgeDesignAutomation.inRequest != inRequest && !inRequest) {
+    if (this.props.forgeDesignAutomation.inRequest !== inRequest && !inRequest) {
       this.props.getModels(bucketKey);
     }
   }
@@ -53,7 +53,7 @@ export class Design extends Component {
           <div className="row">
             <div className="col-8">
               {models
-                .filter(model => model.objectKey.indexOf("rvt") == -1)
+                .filter(model => model.objectKey.indexOf("rvt") === -1)
                 .map(model => (
                   <div className="container" key={model.objectId}>
                     <span> {model.objectKey} </span>

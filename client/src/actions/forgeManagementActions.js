@@ -60,7 +60,7 @@ export const uploadModel = (file, bucketKey) => dispatch => {
   data.append("fileToUpload", file, file.name);
   data.append("access_token", localStorage.access_token);
   data.append("bucketKey", bucketKey);
-
+  // console.log(data)
   axios
     .put("/api/datamanagement/upload", data)
     .then(res => dispatch(getModels(bucketKey)))

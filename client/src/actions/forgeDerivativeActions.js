@@ -39,7 +39,7 @@ export const getObjectInfo = (urn, guid) => dispatch => {
       params: { access_token: localStorage.access_token, urn, guid: guid }
     })
     .then(res => {
-      console.log(res);
+
       dispatch({ type: GET_OBJECT_INFO, payload: res.data.data[0].objects });
     })
     .catch(err => console.log(err));

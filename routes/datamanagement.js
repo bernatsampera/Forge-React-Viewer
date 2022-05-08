@@ -110,15 +110,19 @@ router.put("/upload", upload.single("fileToUpload"), function(req, res) {
         "Content-Disposition": req.file.originalname,
         "Content-Length": filecontent.length
       },
-      data: filecontent
+      data: filecontent,
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
     })
       .then(function(response) {
         // Success
+        // console.log(response)
         var urn = response.data.objectId.toBase64();
         res.json({ success: true, urn: urn });
       })
       .catch(function(error) {
         // Failed
+        // console.log(error)
         res.json({ success: false, message: "Failed uploading a model" });
       });
   });

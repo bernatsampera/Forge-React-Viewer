@@ -2,6 +2,7 @@ import {
   GET_BUCKETS,
   MANAGEMENT_LOADING,
   GET_MODELS,
+  // eslint-disable-next-line no-unused-vars
   GET_MODEL_INFO
 } from "../actions/types";
 

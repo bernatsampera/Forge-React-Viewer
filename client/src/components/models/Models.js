@@ -26,10 +26,12 @@ class Models extends Component {
 
   handleFile(e) {
     this.setState({ uploadFile: e.target.files[0] });
+    // console.log(e.target.files[0])
   }
 
   handleUpload() {
     const { bucketKey } = this.props.match.params;
+    // console.log(bucketKey)
 
     this.props.uploadModel(this.state.uploadFile, bucketKey);
   }
@@ -44,7 +46,7 @@ class Models extends Component {
     } else {
       if (models.length > 0) {
         bucketContent = models
-          .filter(model => model.objectKey.indexOf("zzz") == -1)
+          .filter(model => model.objectKey.indexOf("zzz") === -1)
           .map(model => (
             <ModelItem
               key={model.objectId}

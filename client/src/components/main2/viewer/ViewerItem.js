@@ -9,6 +9,7 @@ import isValid from "../../../validation/is-valid";
 export class ViewerItem extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       viewerApp: null,
       viewer: null,
@@ -18,13 +19,14 @@ export class ViewerItem extends Component {
 
   componentDidMount() {
     this.props.getViewerAccess();
+
     // Initializes Viewer App
   }
 
   componentWillReceiveProps(nextProps) {
     // Select item selected in tree component
     if (
-      this.props.forgeViewer.itemSelected != nextProps.forgeViewer.itemSelected
+      this.props.forgeViewer.itemSelected !== nextProps.forgeViewer.itemSelected
     ) {
       const { itemSelected } = nextProps.forgeViewer;
       const { viewer } = this.state;
@@ -36,7 +38,7 @@ export class ViewerItem extends Component {
       }
     }
     if (
-      this.props.forgeViewer.viewer_token != nextProps.forgeViewer.viewer_token
+      this.props.forgeViewer.viewer_token !== nextProps.forgeViewer.viewer_token
     ) {
       this.setState(
         {
@@ -66,8 +68,11 @@ export class ViewerItem extends Component {
 
   callback = () => {
     const { viewerApp } = this.state;
+    // console.log('MyViewerDiv: ------> ', viewerApp)
+    // console.log(viewerApp.k3D)
     const documentId = `urn:${this.props.urn}`;
     if (viewerApp) {
+      
       viewerApp.registerViewer(
         viewerApp.k3D,
         window.Autodesk.Viewing.Private.GuiViewer3D
@@ -86,13 +91,16 @@ export class ViewerItem extends Component {
       callback(viewer_token.access_token, viewer_token.expires_in);
     } else {
       this.props.getViewerAccess();
+
     }
   };
 
   onDocumentLoadSuccess = doc => {
     // Gets all the possibles viewables
     const { viewerApp } = this.state;
+
     const viewables = viewerApp.bubble.search({ type: "geometry" });
+  
 
     // Selects the viewable that will be displayed, in this case the first, [0], in the array viewables
     viewerApp.selectItem(
@@ -155,6 +163,7 @@ export class ViewerItem extends Component {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 const textStyle = {
   zIndex: "2",
   position: "absolute",

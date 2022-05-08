@@ -15,19 +15,23 @@ import CircleSpinner from "../common/CircleSpinner";
 
 // This component changes the display between the viewer/design/budget pages
 export class Main extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
     const { objectId, filename } = this.props.match.params;
+    // console.log(this.props.match.params)
     this.props.convertModel(objectId, filename);
     this.props.getTreeInfo(objectId, filename);
   }
 
   render() {
     const { bucketKey, filename } = this.props.match.params;
+    
     const { objectInfo, urn, loading } = this.props.forgeDerivative;
+    // console.log(this.props.forgeDerivative)
     let mainContent;
 
     if (isEmpty(objectInfo) || loading) {

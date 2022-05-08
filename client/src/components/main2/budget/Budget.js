@@ -38,7 +38,7 @@ export class Budget extends Component {
     if (isEmpty(itemSelected)) {
       this.props.elementNotSelected();
       return false;
-    } else if (records.filter(elem => elem.id == itemSelected.id).length > 0) {
+    } else if (records.filter(elem => elem.id === itemSelected.id).length > 0) {
       this.props.elementAlreadyAdded();
       return false;
     }

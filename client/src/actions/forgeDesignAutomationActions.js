@@ -28,6 +28,7 @@ export const runWorkItem = (activity, bucketKey, filename) => dispatch => {
   };
   var time = null;
 
+  // eslint-disable-next-line no-unused-vars
   const finish = false;
   axios
     .post("/api/designautomation/workitems", body, {
@@ -48,7 +49,7 @@ export const runWorkItem = (activity, bucketKey, filename) => dispatch => {
         params: { access_token: localStorage.access_token, id }
       })
       .then(res => {
-        if (res.data.status == "success") {
+        if (res.data.status === "success") {
           clearInterval(time);
           dispatch({
             type: ACTIVITY_FINISHED

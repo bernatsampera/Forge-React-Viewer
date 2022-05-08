@@ -9,7 +9,8 @@ var Buffer = require("buffer").Buffer;
 String.prototype.toBase64 = function() {
   // Buffer is part of Node.js to enable interaction with octet streams in TCP streams,
   // file system operations, and other contexts.
-  return new Buffer(this).toString("base64");
+  // return new Buffer(this).toString("base64");
+  return new Buffer.from(this).toString("base64")
 };
 
 router.post("/convert", function(req, res) {
@@ -111,7 +112,7 @@ router.get("/objectInfo", function(req, res) {
     //validate response is not 202
     .then(function(response) {
       // Success
-      console.log(response);
+      // console.log(response);
       res.json({
         success: true,
         data: response.data.data.objects,
